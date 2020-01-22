@@ -121,6 +121,7 @@
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <BundleResource Include="secrets.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -134,12 +135,21 @@
     <PackageReference Include="Xamarin.Forms" Version="4.4.0.991265" />
     <PackageReference Include="Xamarin.TestCloud.Agent" Version="0.21.8" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
+    <PackageReference Include="Mobile.BuildTools">
+      <Version>1.4.0.638</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\GreenEconomy.Forms\GreenEconomy.Forms.csproj">
       <Project>{BDA555A7-5A4C-4F6C-9529-5A7AA3AD9A49}</Project>
       <Name>GreenEconomy.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GreenEconomy.Core\GreenEconomy.Core.csproj">
+      <Project>{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}</Project>
+      <Name>GreenEconomy.Core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
