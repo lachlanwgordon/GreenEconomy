@@ -1,13 +1,15 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenEconomy.Android", "GreenEconomy.Android\GreenEconomy.Android.csproj", "{54F4771F-0937-4642-B04C-BB94CA505ADE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenEconomy.Droid", "GreenEconomy.Droid\GreenEconomy.Droid.csproj", "{54F4771F-0937-4642-B04C-BB94CA505ADE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenEconomy.iOS", "GreenEconomy.iOS\GreenEconomy.iOS.csproj", "{DBD6AE5D-6BF6-4AC3-9B78-20FB8229A8F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenEconomy.UITests", "GreenEconomy.UITests\GreenEconomy.UITests.csproj", "{A714CEF2-1CAD-40CC-ABD6-3B298A7A6DEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenEconomy", "GreenEconomy\GreenEconomy.csproj", "{BDA555A7-5A4C-4F6C-9529-5A7AA3AD9A49}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenEconomy.Forms", "GreenEconomy.Forms\GreenEconomy.Forms.csproj", "{BDA555A7-5A4C-4F6C-9529-5A7AA3AD9A49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenEconomy.Core", "GreenEconomy.Core\GreenEconomy.Core.csproj", "{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,5 +69,17 @@ Global
 		{BDA555A7-5A4C-4F6C-9529-5A7AA3AD9A49}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{BDA555A7-5A4C-4F6C-9529-5A7AA3AD9A49}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{BDA555A7-5A4C-4F6C-9529-5A7AA3AD9A49}.Release|iPhone.Build.0 = Release|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

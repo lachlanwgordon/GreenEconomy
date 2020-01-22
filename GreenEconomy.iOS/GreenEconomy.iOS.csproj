@@ -137,9 +137,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\GreenEconomy\GreenEconomy.csproj">
+    <ProjectReference Include="..\GreenEconomy.Forms\GreenEconomy.Forms.csproj">
       <Project>{BDA555A7-5A4C-4F6C-9529-5A7AA3AD9A49}</Project>
-      <Name>GreenEconomy</Name>
+      <Name>GreenEconomy.Forms</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
