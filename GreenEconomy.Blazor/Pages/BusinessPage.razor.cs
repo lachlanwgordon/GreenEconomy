@@ -14,11 +14,11 @@ namespace GreenEconomy.Blazor.Pages
 {
     public class BusinessPageBase : BasePage
     {
-        public new BusinessViewModel ViewModel;
+        public BusinessViewModel ViewModel;
 
         public BusinessPageBase()
         {
-            ViewModelBase = ViewModel = IOC.Current.Container.Resolve<BusinessViewModel>();
+            ViewModel = IOC.Current.Container.Resolve<BusinessViewModel>();
         }
 
         protected override async Task OnInitializedAsync()
@@ -27,10 +27,5 @@ namespace GreenEconomy.Blazor.Pages
             await ViewModel.OnInitalizeAsync();
         }
 
-        public void CounterPage()
-        {
-            if( ViewModel.NavigationService is NavigationService nav)
-                nav.NavigationManager.NavigateTo("counter");
-        }
     }
 }

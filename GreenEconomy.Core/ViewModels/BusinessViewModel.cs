@@ -15,11 +15,10 @@ namespace GreenEconomy.Core.ViewModels
 
         readonly IDataStore<Business> BusinessStore;
 
-
-
-        public BusinessViewModel(IDataStore<Business> dataStore)
+        public BusinessViewModel(IDataStore<Business> dataStore, INavigationService navigationService)
         {
             BusinessStore = dataStore;
+            NavigationService = navigationService;
         }
 
         public async Task OnInitalizeAsync()

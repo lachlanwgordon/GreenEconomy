@@ -11,6 +11,6 @@ namespace GreenEconomy.Core.Services
         Task OpenPageAsync<T>() where T : ViewModelBase;
         Task GoBackAsync();
 
-        void Register(Type viewMode, object page);
+        void Register(Type viewModel, object page);
     }
 }
