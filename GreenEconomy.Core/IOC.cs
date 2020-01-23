@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using DryIoc;
 using GreenEconomy.Core.Models;
@@ -21,7 +22,9 @@ namespace GreenEconomy.Core
         {
             Container.Register<IDataStore<Business>, BusinessStore>();
             Container.Register<BusinessViewModel, BusinessViewModel>();
+            Container.Register<BusinessDetailsViewModel, BusinessDetailsViewModel>();
             Current = this;
         }
+
     }
 }

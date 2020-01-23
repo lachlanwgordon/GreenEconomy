@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using GreenEconomy.Core.Models;
 using GreenEconomy.Core.Services;
 using MvvmHelpers;
+using MvvmHelpers.Commands;
 
 namespace GreenEconomy.Core.ViewModels
 {
@@ -12,6 +14,8 @@ namespace GreenEconomy.Core.ViewModels
         public ObservableRangeCollection<Business> Businesses { get; set; }
 
         readonly IDataStore<Business> BusinessStore;
+
+
 
         public BusinessViewModel(IDataStore<Business> dataStore)
         {
@@ -24,6 +28,14 @@ namespace GreenEconomy.Core.ViewModels
             Businesses = new ObservableRangeCollection<Business>();
             OnPropertyChanged(nameof(Businesses));
             Businesses.AddRange(businesses);
+        }
+
+        public ICommand NewBusinessCommand => new AsyncCommand(OpenNewBusinessPage);
+
+        public async Task OpenNewBusinessPage()
+        {
+            Debug.WriteLine($"Nav service is {NavigationService}");
+            await NavigationService.OpenPageAsync<BusinessDetailsViewModel>();
         }
     }
 }
