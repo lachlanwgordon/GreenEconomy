@@ -1,21 +1,24 @@
-﻿using Xamarin.Forms;
+﻿using DryIoc;
+using GreenEconomy.Core;
+using Xamarin.Forms;
 
 namespace GreenEconomy
 {
     public partial class App : Application
     {
+        public IOC IOC = new IOC();
 
         public App()
         {
             InitializeComponent();
-
-            //DependencyService.Register<MockDataStore>();
-            //DRYIOC?
+            
             MainPage = new AppShell();
         }
 
-        protected override void OnStart()
+        protected override async void OnStart()
         {
+            await IOC.Initialize();
+            IOC.Container.Register<Xamarin.Essentials.Interfaces.IGeolocation, Xamarin.Essentials.Implementation.GeolocationImplementation>();
         }
 
         protected override void OnSleep()

@@ -12,6 +12,8 @@ namespace GreenEconomy.Blazor
         public void Configure(IComponentsApplicationBuilder app)
         {
             app.AddComponent<App>("app");
+            var ioc = new GreenEconomy.Core.IOC();
+            ioc.Initialize();
         }
     }
 }
