@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using GreenEconomy.Models;
 using GreenEconomy.Views;
 using GreenEconomy.ViewModels;
+using GreenEconomy.Core.ViewModels;
+using GreenEconomy.Core.Models;
 
 namespace GreenEconomy.Views
 {

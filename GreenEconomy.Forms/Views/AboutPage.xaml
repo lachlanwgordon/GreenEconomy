@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     x:Class="GreenEconomy.Views.AboutPage"
-    xmlns:vm="clr-namespace:GreenEconomy.ViewModels"
+    xmlns:vm="clr-namespace:GreenEconomy.Core.ViewModels;assembly=GreenEconomy.Core"
     Title="{Binding Title}">
     <ContentPage.BindingContext>
         <vm:AboutViewModel />

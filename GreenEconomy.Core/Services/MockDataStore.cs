@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using GreenEconomy.Models;
+using GreenEconomy.Core.Models;
 
-namespace GreenEconomy.Services
+namespace GreenEconomy.Core.Services
 {
     public class MockDataStore : IDataStore<Item>
     {

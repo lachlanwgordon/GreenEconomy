@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using GreenEconomy.Services;
 
 namespace GreenEconomy
 {
@@ -10,7 +9,8 @@ namespace GreenEconomy
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            //DependencyService.Register<MockDataStore>();
+            //DRYIOC?
             MainPage = new AppShell();
         }
 

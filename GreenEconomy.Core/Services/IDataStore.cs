@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace GreenEconomy.Services
+namespace GreenEconomy.Core.Services
 {
     public interface IDataStore<T>
     {

@@ -3,8 +3,8 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-using GreenEconomy.Models;
 using GreenEconomy.ViewModels;
+using GreenEconomy.Core.Models;
 
 namespace GreenEconomy.Views
 {

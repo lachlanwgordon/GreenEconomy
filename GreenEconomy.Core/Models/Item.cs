@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GreenEconomy.Models
+namespace GreenEconomy.Core.Models
 {
     public class Item
     {

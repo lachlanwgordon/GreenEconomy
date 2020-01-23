@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows.Input;
+using MvvmHelpers.Commands;
 using Xamarin.Essentials;
-using Xamarin.Forms;
 
-namespace GreenEconomy.ViewModels
+namespace GreenEconomy.Core.ViewModels
 {
-    public class AboutViewModel : BaseViewModel
+    public class AboutViewModel : ViewModelBase
     {
         public AboutViewModel()
         {

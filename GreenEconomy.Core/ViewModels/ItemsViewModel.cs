@@ -2,18 +2,17 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using GreenEconomy.Core.Models;
+using GreenEconomy.Core.Services;
+using MvvmHelpers.Commands;
 
-using Xamarin.Forms;
-
-using GreenEconomy.Models;
-using GreenEconomy.Views;
-
-namespace GreenEconomy.ViewModels
+namespace GreenEconomy.Core.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class ItemsViewModel : ViewModelBase
     {
         public ObservableCollection<Item> Items { get; set; }
         public Command LoadItemsCommand { get; set; }
+        public IDataStore<Item> DataStore = new MockDataStore();//IOC this
 
         public ItemsViewModel()
         {
@@ -21,12 +20,6 @@ namespace GreenEconomy.ViewModels
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
-            {
-                var newItem = item as Item;
-                Items.Add(newItem);
-                await DataStore.AddItemAsync(newItem);
-            });
         }
 
         async Task ExecuteLoadItemsCommand()
