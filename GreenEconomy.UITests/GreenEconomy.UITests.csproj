@@ -40,7 +40,7 @@
     </ProjectReference>
     <ProjectReference Include="..\GreenEconomy.Android\GreenEconomy.Android.csproj">
       <Project>{54F4771F-0937-4642-B04C-BB94CA505ADE}</Project>
-      <Name>GreenEconomy.Android</Name>
+      <Name>GreenEconomy.Droid</Name>
       <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
       <Private>False</Private>
     </ProjectReference>

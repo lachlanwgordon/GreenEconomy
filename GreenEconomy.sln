@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenEconomy.Forms", "Green
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenEconomy.Core", "GreenEconomy.Core\GreenEconomy.Core.csproj", "{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenEconomy.Functions", "GreenEconomy.Functions\GreenEconomy.Functions.csproj", "{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,5 +83,17 @@ Global
 		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Release|iPhone.ActiveCfg = Release|Any CPU
 		{A90B088F-9F34-4E1C-B91B-95DAA75AD9D5}.Release|iPhone.Build.0 = Release|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{9197A487-EE5F-4BDE-BE59-A7FDC8F099D8}.Release|iPhone.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
