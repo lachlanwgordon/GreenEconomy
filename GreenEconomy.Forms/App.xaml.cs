@@ -1,8 +1,5 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 using GreenEconomy.Services;
-using GreenEconomy.Views;
 
 namespace GreenEconomy
 {

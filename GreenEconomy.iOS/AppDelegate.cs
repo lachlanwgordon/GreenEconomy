@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Foundation;
-using GreenEconomy.Core;
 using UIKit;
 
 namespace GreenEconomy.iOS
@@ -26,9 +24,6 @@ namespace GreenEconomy.iOS
             Xamarin.Calabash.Start();
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
-
-            var mapsKey = APIKeys.GoogleMapsKey;
-
 
             LoadApplication(new App());
 
