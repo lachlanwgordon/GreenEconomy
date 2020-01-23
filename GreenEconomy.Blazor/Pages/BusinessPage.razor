@@ -1,12 +1,12 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
-@inherits FetchDataBase
+@inherits BusinessPageBase
 
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
 
-@if (Businesses == null)
+@if (ViewModel.Businesses == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -22,7 +22,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var business in Businesses)
+            @foreach (var business in ViewModel.Businesses)
             {
                 <tr>
                     <td>@business.Id</td>

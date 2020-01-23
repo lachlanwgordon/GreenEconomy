@@ -17,7 +17,8 @@ namespace GreenEconomy
 
         protected override async void OnStart()
         {
-            await IOC.Initialize();
+            IOC.Initialize();
+
             IOC.Container.Register<Xamarin.Essentials.Interfaces.IGeolocation, Xamarin.Essentials.Implementation.GeolocationImplementation>();
         }
 

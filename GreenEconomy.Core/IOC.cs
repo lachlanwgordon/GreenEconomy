@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DryIoc;
 using GreenEconomy.Core.Models;
 using GreenEconomy.Core.Services;
+using GreenEconomy.Core.ViewModels;
 
 namespace GreenEconomy.Core
 {
@@ -19,6 +20,7 @@ namespace GreenEconomy.Core
         public void Initialize()
         {
             Container.Register<IDataStore<Business>, BusinessStore>();
+            Container.Register<BusinessViewModel, BusinessViewModel>();
             Current = this;
         }
     }

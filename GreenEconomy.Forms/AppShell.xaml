@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:local="clr-namespace:GreenEconomy.Views"
+    xmlns:pages="clr-namespace:GreenEconomy.Forms.Views"
     Title="GreenEconomy"
     x:Class="GreenEconomy.AppShell">
     <!-- 
@@ -53,6 +54,12 @@
     </Shell.Resources>
     <!-- Your Pages -->
     <TabBar>
+        <Tab
+            Title="Businesses"
+            Icon="tab_feed.png">
+            <ShellContent
+                ContentTemplate="{DataTemplate pages:BusinessPage}" />
+        </Tab>
         <Tab
             Title="Browse"
             Icon="tab_feed.png">

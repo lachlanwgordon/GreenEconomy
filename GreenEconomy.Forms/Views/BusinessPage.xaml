@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    x:Class="GreenEconomy.Forms.Views.BusinessPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout
+                Orientation="Horizontal">
+                <Label
+                    Text="Id" />
+                <Label
+                    Text="Name" />
+                <Label
+                    Text="Latitude" />
+                <Label
+                    Text="Longitude" />
+            </StackLayout>
+            <CollectionView
+                ItemsSource="{Binding Businesses}">
+                <CollectionView.EmptyView>
+                    <Label Text="Loading..."/>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            Orientation="Horizontal">
+                            <Label
+                                Text="{Binding Id}" />
+                            <Label
+                                Text="{Binding Name}" />
+                            <Label
+                                Text="{Binding Latitude}" />
+                            <Label
+                                Text="{Binding Longitude}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
