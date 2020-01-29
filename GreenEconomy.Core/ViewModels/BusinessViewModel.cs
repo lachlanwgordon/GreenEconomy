@@ -6,6 +6,7 @@ using GreenEconomy.Core.Models;
 using GreenEconomy.Core.Services;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
+using DryIoc;
 
 namespace GreenEconomy.Core.ViewModels
 {
@@ -16,14 +17,17 @@ namespace GreenEconomy.Core.ViewModels
         readonly IDataStore<Business> BusinessStore;
 
 
-
-        public BusinessViewModel(IDataStore<Business> dataStore)
+        //This constructor will always fail the second time it runs but will be fine after that
+        public BusinessViewModel(INavigationService navigationService, IDataStore<Business> dataStore) : base(navigationService)
         {
+            Debug.WriteLine($"Construct business vm");
             BusinessStore = dataStore;
         }
 
-        public async Task OnInitalizeAsync()
+
+        public override async Task OnIntializeAsync()
         {
+            await base.OnIntializeAsync();
             var businesses = await BusinessStore.GetItemsAsync();
             Businesses = new ObservableRangeCollection<Business>();
             OnPropertyChanged(nameof(Businesses));

@@ -1,19 +1,19 @@
-﻿@page "/fetchdata"
+﻿@page "/businesses"
+@page "/businesses/{id:guid}"
 @inject HttpClient Http
 @inherits BusinessPageBase
 
-<h1>Weather forecast</h1>
+<h1>Businesses</h1>
 
 <p>This component demonstrates fetching data from the server.</p>
 
-@if (ViewModel.Businesses == null)
+@if (ViewModel == null || ViewModel.Businesses == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
     <button class="btn btn-primary" @onclick="ViewModel.OpenNewBusinessPage">Click me</button>
-    <button class="btn btn-primary" @onclick="CounterPage">Click mebad</button>
 
     <table class="table">
         <thead>

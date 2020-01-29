@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using DryIoc;
 using GreenEconomy.Core.Models;
@@ -15,14 +16,12 @@ namespace GreenEconomy.Core
         }
 
         public static IOC Current { get; private set; }
-        public IContainer Container = new DryIoc.Container();
+        public IContainer Container = new DryIoc.Container(rules => rules.WithoutFastExpressionCompiler());
 
 
         public void Initialize()
         {
             Container.Register<IDataStore<Business>, BusinessStore>();
-            Container.Register<BusinessViewModel, BusinessViewModel>();
-            Container.Register<BusinessDetailsViewModel, BusinessDetailsViewModel>();
             Current = this;
         }
 
