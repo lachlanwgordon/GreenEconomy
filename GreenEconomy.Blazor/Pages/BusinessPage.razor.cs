@@ -16,4 +16,5 @@ namespace GreenEconomy.Blazor.Pages
     {
 
     }
+
 }

@@ -21,7 +21,7 @@ namespace GreenEconomy.Core
 
         public void Initialize()
         {
-            Container.Register<IDataStore<Business>, BusinessStore>();
+            Container.Register<IDataStore<Business>, BusinessStore>(Reuse.Singleton);
             Current = this;
         }
 

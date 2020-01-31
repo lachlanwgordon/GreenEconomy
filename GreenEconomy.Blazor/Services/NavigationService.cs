@@ -8,6 +8,8 @@ using GreenEconomy.Core.ViewModels;
 using Microsoft.AspNetCore.Components;
 using DryIoc;
 using MvvmHelpers;
+using GreenEconomy.Core.Models;
+using System.Linq;
 
 namespace GreenEconomy.Blazor
 {
@@ -17,43 +19,52 @@ namespace GreenEconomy.Blazor
 
         Stack<(string url, ViewModelBase vm)> NavigationStack = new Stack<(string url, ViewModelBase vm)>();
         Dictionary<Type, string> Pages = new Dictionary<Type, string>();
-        Dictionary<Guid, ViewModelBase> VMInstances = new Dictionary<Guid, ViewModelBase>();
+        Dictionary<string, ViewModelBase> VMInstances = new Dictionary<string, ViewModelBase>();
  
-        public Task<T> OpenPageAsync<T>() where T : ViewModelBase
+        public Task<T> OpenPageAsync<T>(params BaseModel[] parameters) where T : ViewModelBase
         {
             var vm = IOC.Current.Container.Resolve(typeof(T)) as ViewModelBase;
-            var vmId = Guid.NewGuid();
-            VMInstances.Add(vmId, vm);
-            Debug.WriteLine($"Nav service adding vm {vmId} {vm}");
 
             var page = Pages[typeof(T)];
-            //NavigationStack.Push((page,vm));
-            NavigationManager.NavigateTo(page);
-            return Task.FromResult(vm as T);
-        }
+            vm.BaseInit(parameters);
 
-        //I don't like this but I can't seem to find a way to get the VM into the page and keep an instance of the VM here
-        public T GetViewModel<T>(Guid id) where T : ViewModelBase
-        {
-            Debug.WriteLine($"Nav service getvm for id");
-            ViewModelBase vm; 
-
-            if(id != Guid.Empty)
+            if (parameters.Any(x => x != null))
             {
-                Debug.WriteLine($"Nav service getvm returning {VMInstances[id]}");
-
-                vm = VMInstances[id] as T;
+                var vmId = parameters.FirstOrDefault().Id;
+                VMInstances[vmId] = vm;
+                NavigationManager.NavigateTo($"{page}/{vmId}");
             }
             else
             {
-                Debug.WriteLine($"Nav service getvm resolving a new VM");
-                vm = IOC.Current.Container.Resolve<T>();
-
+                NavigationManager.NavigateTo(page);
             }
 
-            vm.BaseInit();
+            return Task.FromResult(vm as T);
+        }
+
+
+        //I don't like this but I can't seem to find a way to get the VM into the page and keep an instance of the VM here
+        public T GetViewModel<T>(string id) where T : ViewModelBase
+        {
+            ViewModelBase vm;
+
+            if (!string.IsNullOrWhiteSpace(id) && VMInstances.ContainsKey(id)) 
+            {
+
+                vm = VMInstances[id] as T;
+            }
+            else if (!string.IsNullOrWhiteSpace(id))
+            {
+                vm = IOC.Current.Container.Resolve<T>();
+                vm.BaseInit(id);
+            }
+            else
+            {
+                vm = IOC.Current.Container.Resolve<T>();
+                vm.BaseInit();
+            }
+
             NavigationStack.Push((NavigationManager.Uri.ToString(), vm));
-            Debug.WriteLine($"added {NavigationStack.Peek()} to stack new count {NavigationStack.Count}");
             return vm as T;
         }
 
@@ -66,14 +77,23 @@ namespace GreenEconomy.Blazor
 
         }
 
+
+        /// <summary>
+        /// Navigates to previous page in stack. CAUTION Stack may be empty. This method will return null and perform no navigation if there's no page to navigate to
+        /// TODO Contemplace going to earlier part of URL Stack
+        /// </summary>
+        /// <returns></returns>
         public Task<ViewModelBase> GoBackAsync()
         {
+            if (NavigationStack.Count < 2)
+                return null;
 
             var currentPage = NavigationStack.Pop();
-            Debug.WriteLine($"Going back to {NavigationStack.Peek()} new count = {NavigationStack.Count}");
             var previousPage = NavigationStack.Peek();
             NavigationManager.NavigateTo(previousPage.url);
             return Task.FromResult(previousPage.vm);
         }
+
+        
     }
 }

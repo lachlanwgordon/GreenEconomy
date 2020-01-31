@@ -7,6 +7,7 @@ using GreenEconomy.Core.ViewModels;
 using GreenEconomy.Forms.Views;
 using Xamarin.Forms;
 using DryIoc;
+using GreenEconomy.Core.Models;
 
 namespace GreenEconomy.Forms.Services
 {
@@ -16,12 +17,13 @@ namespace GreenEconomy.Forms.Services
         {
         }
         Dictionary<Type, Type> Pages = new Dictionary<Type, Type>();
-        public async Task<T> OpenPageAsync<T>() where T : ViewModelBase
+        public async Task<T> OpenPageAsync<T>(params BaseModel[] parameters) where T : ViewModelBase
         {
             var pageType = Pages[typeof(T)];
             var page = Activator.CreateInstance(pageType) as ContentPage;
             var vm = IOC.Current.Container.Resolve<T>();
             page.BindingContext = vm;
+            vm.BaseInit(parameters);
             await Shell.Current.Navigation.PushAsync(page);
             return vm;
         }

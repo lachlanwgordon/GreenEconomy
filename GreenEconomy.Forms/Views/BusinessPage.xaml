@@ -6,12 +6,12 @@
     xmlns:vm="clr-namespace:GreenEconomy.Core.ViewModels;assembly=GreenEconomy.Core"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    x:Name="ThisPage"
     x:Class="GreenEconomy.Forms.Views.BusinessPage">
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Text="+"
-            Command="{Binding NewBusinessCommand}"
-            >
+            Command="{Binding EditBusinessCommand}">
         </ToolbarItem>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
@@ -27,27 +27,30 @@
                 <Label
                     Text="Longitude" />
             </StackLayout>
-            <CollectionView
-                ItemsSource="{Binding Businesses}">
-                <CollectionView.EmptyView>
-                    <Label Text="Loading..."/>
-                </CollectionView.EmptyView>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout
-                            Orientation="Horizontal">
-                            <Label
-                                Text="{Binding Id}" />
-                            <Label
-                                Text="{Binding Name}" />
-                            <Label
-                                Text="{Binding Latitude}" />
-                            <Label
-                                Text="{Binding Longitude}" />
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy}" >
+                <CollectionView
+                    ItemsSource="{Binding Businesses}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout
+                                Orientation="Horizontal">
+
+                                <Label
+                                    Text="{Binding Name}" />
+                                <Label
+                                    Text="{Binding Latitude}" />
+                                <Label
+                                    Text="{Binding Longitude}" />
+                                <Button
+                                    Text="Edit"
+                                    CommandParameter="{Binding .}"
+                                    Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.EditBusinessCommand}" />
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
         </StackLayout>
 
     </ContentPage.Content>

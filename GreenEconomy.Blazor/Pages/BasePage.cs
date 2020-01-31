@@ -12,7 +12,8 @@ namespace GreenEconomy.Blazor.Pages
     public class BasePage<T> : ComponentBase where T : ViewModelBase
     {
         [Parameter]
-        public Guid id { get; set; }
+        public string id { get; set; }
+
         [Inject] NavigationManager NavigationManager { get; set; }
         public T ViewModel;
 
@@ -21,7 +22,10 @@ namespace GreenEconomy.Blazor.Pages
             await base.OnInitializedAsync();
             var nav = IOC.Current.Container.Resolve<INavigationService>() as NavigationService;
             nav.NavigationManager = NavigationManager;
+
             ViewModel = nav.GetViewModel<T>(id);
+            await ViewModel.OnAppearingAsync();
+
         }
     }
 }

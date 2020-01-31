@@ -5,8 +5,17 @@
     x:Class="GreenEconomy.Forms.Views.BusinessDetailsPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text=" Business Details"/>
-            <Button Text="Back" Command="{Binding BackCommand}"/>
+            <Label Text="Business Details"/>
+            <Label Text="Business Name"/>
+            <Entry Text="{Binding Business.Name}" Placeholder="Business Name"/>
+            <Label Text="Phone Number"/>
+            <Entry Text="{Binding Business.PhoneNumber}" Placeholder="Phone Number"/>
+            <Label Text="Latitude"/>
+            <Entry Text="{Binding Business.Latitude}" Placeholder="Latitude"/>
+            <Label Text="Longitude"/>
+            <Entry Text="{Binding Business.Longitude}" Placeholder="Longitude"/>
+            <Button Text="Save" Command="{Binding SaveCommand}"/>
+            <Button Text="Cancel" Command="{Binding BackCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

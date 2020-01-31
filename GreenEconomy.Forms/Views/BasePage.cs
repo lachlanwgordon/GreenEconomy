@@ -13,18 +13,17 @@ namespace GreenEconomy.Forms.Views
 
         public BasePage()
         {
-            
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
             if(BindingContext == null)
             {
                 BindingContext = IOC.Current.Container.Resolve<T>();
-                Debug.WriteLine("BindingContext is null in base onapperaring");
                 (BindingContext as T).BaseInit();
             }
+            await ViewModel.OnAppearingAsync();
         }
     }
 }
