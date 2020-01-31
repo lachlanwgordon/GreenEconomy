@@ -42,11 +42,11 @@ steps:
     echo Are the files there.
     pwd
     ls 
-    ls GreenEconomy.Blazor/bin/Debug/netstandard2.1/publish/GreenEconomy.Blazor/dist
+    ls publish
   displayName: 'Run a multi-line script'
 - task: AzureFileCopy@3
   inputs:
-    SourcePath: 'GreenEconomy.Blazor/bin/Debug/netstandard2.1/publish/GreenEconomy.Blazor/dist'
+    SourcePath: 'publish/GreenEconomy.Blazor/dist'
     azureSubscription: 'Pay-As-You-Go(951a84dd-fbb0-4ba0-bc31-4865ee7f4df3)'
     Destination: 'AzureBlob'
     storage: 'greeneconomystorage'
