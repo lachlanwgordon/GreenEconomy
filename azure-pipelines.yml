@@ -31,7 +31,11 @@ steps:
     projects: 'GreenEconomy.Blazor/GreenEconomy.Blazor.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
-
+- script: |
+    echo Are the files there.
+    pwd
+    ls GreenEconomy.Blazor/bin/Debug/netstandard2.1/publish/GreenEconomy.Blazor/dist
+  displayName: 'Run a multi-line script'
 - task: AzureFileCopy@3
   inputs:
     SourcePath: 'GreenEconomy.Blazor/bin/Debug/netstandard2.1/publish/GreenEconomy.Blazor/dist'
