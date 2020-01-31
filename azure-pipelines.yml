@@ -34,7 +34,7 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: 'GreenEconomy.Blazor/GreenEconomy.Blazor.csproj'
-    arguments: '--configuration $(buildConfiguration) -o /publish'
+    arguments: '--configuration $(buildConfiguration) -o ./publish'
 
 
 
