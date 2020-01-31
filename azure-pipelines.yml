@@ -23,6 +23,11 @@ steps:
     ls
   displayName: 'Run a multi-line script'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'GreenEconomy.Blazor/GreenEconomy.Blazor.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -30,6 +35,8 @@ steps:
     publishWebProjects: false
     projects: 'GreenEconomy.Blazor/GreenEconomy.Blazor.csproj'
     arguments: '--configuration $(buildConfiguration)'
+
+
 
 - script: |
     echo Are the files there.
