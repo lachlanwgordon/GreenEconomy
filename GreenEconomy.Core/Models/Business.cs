@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using Xamarin.Essentials;
 
 namespace GreenEconomy.Core.Models
 {
@@ -7,12 +8,10 @@ namespace GreenEconomy.Core.Models
     {
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public Location Location { get; set; }
 
         public Business()
         {
-            Debug.WriteLine("Constructing a business");
         }
     }
 }

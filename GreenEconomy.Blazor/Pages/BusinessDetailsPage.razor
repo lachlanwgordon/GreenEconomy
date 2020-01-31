@@ -20,8 +20,8 @@ else
     <EditForm Model="@ViewModel.Business">
         <InputText id="name" @bind-Value="ViewModel.Business.Name" />
         <InputText id="name" @bind-Value="ViewModel.Business.PhoneNumber" />
-        <InputNumber id="name" @bind-Value="ViewModel.Business.Latitude" />
-        <InputNumber id="name" @bind-Value="ViewModel.Business.Longitude" />
+        <InputNumber id="name" @bind-Value="ViewModel.Business.Location.Latitude" />
+        <InputNumber id="name" @bind-Value="ViewModel.Business.Location.Longitude" />
     </EditForm>
 
 

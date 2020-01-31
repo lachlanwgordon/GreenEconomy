@@ -26,10 +26,8 @@ namespace GreenEconomy.iOS
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
             var key = Forms.Helpers.Keys.GoogleMapsKey;
-            Debug.WriteLine(key);
+            Xamarin.FormsGoogleMaps.Init(key);
             LoadApplication(new App());
-
-
 
             return base.FinishedLaunching(app, options);
         }
