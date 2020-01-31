@@ -19,6 +19,7 @@ steps:
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
+    pwd
   displayName: 'Run a multi-line script'
 
 
@@ -26,7 +27,7 @@ steps:
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '/GreenEconomy.Blazor/GreenEconomy.Blazor.csproj'
+    projects: 'GreenEconomy.Blazor/GreenEconomy.Blazor.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
 
