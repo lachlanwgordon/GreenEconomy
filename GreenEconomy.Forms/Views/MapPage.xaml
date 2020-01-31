@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<views:BasePage
+    x:TypeArguments="vm:MapViewModel"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:views="clr-namespace:GreenEconomy.Forms.Views"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+    xmlns:vm="clr-namespace:GreenEconomy.Core.ViewModels;assembly=GreenEconomy.Core"
+    x:Class="GreenEconomy.Forms.Views.MapPage"
+    xmlns:converters="clr-namespace:GreenEconomy.Forms.Converters">
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition
+                    Height="Auto" />
+                <RowDefinition
+                    Height="*" />
+            </Grid.RowDefinitions>
+            <SearchBar
+                Text="{Binding SearchText}"
+                SearchCommand="{Binding SearchCommand}">
+            </SearchBar>
+            <maps:Map
+                x:Name="TheMap"
+                 
+                InitialCameraUpdate="{Binding CurrentLocation, Converter={StaticResource locationToMapCameraUpdateConverter}"
+                Grid.Row="1"
+                ItemsSource="{Binding Businesses}">
+                <maps:Map.ItemTemplate>
+                    <DataTemplate>
+                        <maps:Pin
+                            Position="{Binding Location, Converter={StaticResource locationToPositionConverter}}"
+                            Label="{Binding Name}">
+
+                        </maps:Pin>
+                    </DataTemplate>
+                </maps:Map.ItemTemplate>
+
+            </maps:Map>
+        </Grid>
+    </ContentPage.Content>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:LocationToPositionConverter
+                x:Key="locationToPositionConverter" />
+            <converters:LocationToMapCameraUpdateConverter
+                x:Key="locationToMapCameraUpdateConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+</views:BasePage>

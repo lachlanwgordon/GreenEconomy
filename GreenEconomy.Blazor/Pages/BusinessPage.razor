@@ -29,8 +29,8 @@ else
                 <tr>
                     <td>@business.Id</td>
                     <td>@business.Name</td>
-                    <td>@business.Latitude</td>
-                    <td>@business.Longitude</td>
+                    <td>@business.Location.Latitude</td>
+                    <td>@business.Location.Longitude</td>
                     <td>
                         <button class="btn btn-primary" @onclick="(() => ViewModel.EditBusiness(business))">Edit</button>
                     </td>

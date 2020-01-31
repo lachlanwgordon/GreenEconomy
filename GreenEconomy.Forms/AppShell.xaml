@@ -55,6 +55,12 @@
     <!-- Your Pages -->
     <TabBar>
         <Tab
+            Title="Maps"
+            Icon="tab_feed.png">
+            <ShellContent
+                ContentTemplate="{DataTemplate pages:MapPage}" />
+        </Tab>
+        <Tab
             Title="Businesses"
             Icon="tab_feed.png">
             <ShellContent

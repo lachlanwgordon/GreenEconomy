@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Services\" />
+    <Folder Include="Converters\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GreenEconomy.Core\GreenEconomy.Core.csproj" />

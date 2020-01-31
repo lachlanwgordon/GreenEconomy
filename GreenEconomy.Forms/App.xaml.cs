@@ -22,16 +22,17 @@ namespace GreenEconomy
             MainPage = new AppShell();
         }
 
-        protected override async void OnStart()
+        protected override void OnStart()
         {
             IOC.Initialize();
 
-            //IOC.Container.Register<Xamarin.Essentials.Interfaces.IGeolocation, Xamarin.Essentials.Implementation.GeolocationImplementation>();
+            IOC.Container.Register<Xamarin.Essentials.Interfaces.IGeolocation, Xamarin.Essentials.Implementation.GeolocationImplementation>();
             IOC.Container.Register<INavigationService, NavigationService>(Reuse.Singleton);
             var nav = IOC.Container.Resolve<INavigationService>();
 
             nav.Register(typeof(BusinessDetailsViewModel), typeof(BusinessDetailsPage));
             nav.Register(typeof(BusinessViewModel), typeof(BusinessPage));
+            nav.Register(typeof(MapViewModel), typeof(MapPage));
         }
 
         protected override void OnSleep()

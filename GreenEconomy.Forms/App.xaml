@@ -5,7 +5,10 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    x:Class="GreenEconomy.App">
+    x:Class="GreenEconomy.App" xmlns:converters="clr-namespace:GreenEconomy.Forms.Converters">
     <Application.Resources>
+      <ResourceDictionary>
+       
+      </ResourceDictionary>
     </Application.Resources>
 </Application>
