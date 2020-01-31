@@ -20,6 +20,7 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
     pwd
+    ls
   displayName: 'Run a multi-line script'
 
 
@@ -33,7 +34,7 @@ steps:
 
 - task: AzureFileCopy@3
   inputs:
-    SourcePath: '/GreenEconomy.Blazor/bin/Debug/netstandard2.1/publish/GreenEconomy.Blazor/dist'
+    SourcePath: 'GreenEconomy.Blazor/bin/Debug/netstandard2.1/publish/GreenEconomy.Blazor/dist'
     azureSubscription: 'Pay-As-You-Go(951a84dd-fbb0-4ba0-bc31-4865ee7f4df3)'
     Destination: 'AzureBlob'
     storage: 'greeneconomystorage'
