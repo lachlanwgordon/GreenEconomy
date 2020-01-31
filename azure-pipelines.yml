@@ -34,13 +34,14 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: 'GreenEconomy.Blazor/GreenEconomy.Blazor.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) -o /publish'
 
 
 
 - script: |
     echo Are the files there.
     pwd
+    ls 
     ls GreenEconomy.Blazor/bin/Debug/netstandard2.1/publish/GreenEconomy.Blazor/dist
   displayName: 'Run a multi-line script'
 - task: AzureFileCopy@3
