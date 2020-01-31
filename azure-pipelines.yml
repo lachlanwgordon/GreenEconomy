@@ -35,6 +35,7 @@ steps:
     publishWebProjects: false
     projects: 'GreenEconomy.Blazor/GreenEconomy.Blazor.csproj'
     arguments: '--configuration $(buildConfiguration) -o ./publish'
+    zipAfterPublish: false
 
 
 
