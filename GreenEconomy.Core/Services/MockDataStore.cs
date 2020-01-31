@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using GreenEconomy.Core.Models;
@@ -27,6 +28,7 @@ namespace GreenEconomy.Core.Services
         {
             items.Add(item);
 
+            Debug.WriteLine($"add Item items count: {items.Count}");
             return await Task.FromResult(true);
         }
 
@@ -36,6 +38,7 @@ namespace GreenEconomy.Core.Services
             items.Remove(oldItem);
             items.Add(item);
 
+            Debug.WriteLine($"update Item items count: {items.Count}");
             return await Task.FromResult(true);
         }
 
@@ -44,16 +47,19 @@ namespace GreenEconomy.Core.Services
             var oldItem = items.Where((Item arg) => arg.Id == id).FirstOrDefault();
             items.Remove(oldItem);
 
+            Debug.WriteLine($"delete Item items count: {items.Count}");
             return await Task.FromResult(true);
         }
 
         public async Task<Item> GetItemAsync(string id)
         {
+            Debug.WriteLine($"GET Item {id} items count: {items.Count}");
             return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
         }
 
         public async Task<IEnumerable<Item>> GetItemsAsync(bool forceRefresh = false)
         {
+            Debug.WriteLine($"GET Items items count: {items.Count}");
             return await Task.FromResult(items);
         }
     }

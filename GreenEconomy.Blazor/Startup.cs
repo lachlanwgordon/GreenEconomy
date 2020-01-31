@@ -22,14 +22,16 @@ namespace GreenEconomy.Blazor
 
             //Register services that are blazor specific.
             //For shared services go to Core.IOC
-            ioc.Container.Register<INavigationService, NavigationService>();
-
+          //  var navService = new NavigationService();
+            //ioc.Container.RegisterInstance<INavigationService>(navService);//   .Register<INavigationService>(Reuse.  navService);
+            ioc.Container.Register<INavigationService, NavigationService>(Reuse.Singleton);//   .Register<INavigationService>(Reuse.  navService);
 
 
 
             //Register pages for navigation
             var nav = ioc.Container.Resolve<INavigationService>();
-            nav.Register(typeof(BusinessDetailsViewModel), "counter");
+            nav.Register(typeof(BusinessDetailsViewModel), "businessdetails");
+            nav.Register(typeof(BusinessViewModel), "businesses");
         }
     }
 }

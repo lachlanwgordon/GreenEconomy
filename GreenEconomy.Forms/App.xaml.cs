@@ -1,5 +1,12 @@
-﻿using DryIoc;
+﻿using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using DryIoc;
 using GreenEconomy.Core;
+using GreenEconomy.Core.Services;
+using GreenEconomy.Core.ViewModels;
+using GreenEconomy.Forms.Services;
+using GreenEconomy.Forms.Views;
 using Xamarin.Forms;
 
 namespace GreenEconomy
@@ -19,7 +26,12 @@ namespace GreenEconomy
         {
             IOC.Initialize();
 
-            IOC.Container.Register<Xamarin.Essentials.Interfaces.IGeolocation, Xamarin.Essentials.Implementation.GeolocationImplementation>();
+            //IOC.Container.Register<Xamarin.Essentials.Interfaces.IGeolocation, Xamarin.Essentials.Implementation.GeolocationImplementation>();
+            IOC.Container.Register<INavigationService, NavigationService>(Reuse.Singleton);
+            var nav = IOC.Container.Resolve<INavigationService>();
+
+            nav.Register(typeof(BusinessDetailsViewModel), typeof(BusinessDetailsPage));
+            nav.Register(typeof(BusinessViewModel), typeof(BusinessPage));
         }
 
         protected override void OnSleep()

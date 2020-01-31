@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+
 namespace GreenEconomy.Core.Models
 {
     public class Business : BaseModel
@@ -10,6 +12,7 @@ namespace GreenEconomy.Core.Models
 
         public Business()
         {
+            Debug.WriteLine("Constructing a business");
         }
     }
 }

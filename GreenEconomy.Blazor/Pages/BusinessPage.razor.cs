@@ -12,25 +12,9 @@ using System.Diagnostics;
 
 namespace GreenEconomy.Blazor.Pages
 {
-    public class BusinessPageBase : BasePage
+    public class BusinessPageBase : BasePage<BusinessViewModel>
     {
-        public new BusinessViewModel ViewModel;
 
-        public BusinessPageBase()
-        {
-            ViewModelBase = ViewModel = IOC.Current.Container.Resolve<BusinessViewModel>();
-        }
-
-        protected override async Task OnInitializedAsync()
-        {
-            await base.OnInitializedAsync();
-            await ViewModel.OnInitalizeAsync();
-        }
-
-        public void CounterPage()
-        {
-            if( ViewModel.NavigationService is NavigationService nav)
-                nav.NavigationManager.NavigateTo("counter");
-        }
     }
+
 }

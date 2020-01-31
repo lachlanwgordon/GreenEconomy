@@ -1,0 +1,35 @@
+﻿@page "/businessdetails"
+@page "/businessdetails/{id}"
+
+@inherits BusinessDetailsPageBase
+
+<h1>@(ViewModel.Business == null || String.IsNullOrEmpty(ViewModel.Business.Name) ? "New Business" : ViewModel.Business.Name) Details</h1>
+
+@if (ViewModel == null)
+{
+    <p><em>VM NULL...</em></p>
+}
+else if (ViewModel.IsBusy)
+{
+    <p><em>Loading...</em></p>
+}
+
+else
+{
+    <p><em>@ViewModel.Business.Name</em></p>
+    <EditForm Model="@ViewModel.Business">
+        <InputText id="name" @bind-Value="ViewModel.Business.Name" />
+        <InputText id="name" @bind-Value="ViewModel.Business.PhoneNumber" />
+        <InputNumber id="name" @bind-Value="ViewModel.Business.Latitude" />
+        <InputNumber id="name" @bind-Value="ViewModel.Business.Longitude" />
+    </EditForm>
+
+
+    <button class="btn btn-primary" @onclick="ViewModel.GoBack">Back</button>
+    <button class="btn btn-primary" @onclick="ViewModel.Save">Save</button>
+}
+@if (ViewModel.Error != null)
+{
+    <p><em>@ViewModel.Error</em></p>
+
+}

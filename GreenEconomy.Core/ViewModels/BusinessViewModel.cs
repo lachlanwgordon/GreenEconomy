@@ -6,36 +6,45 @@ using GreenEconomy.Core.Models;
 using GreenEconomy.Core.Services;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
+using DryIoc;
+using System.Collections.Generic;
 
 namespace GreenEconomy.Core.ViewModels
 {
     public class BusinessViewModel : ViewModelBase
     {
-        public ObservableRangeCollection<Business> Businesses { get; set; }
+        public ObservableRangeCollection<Business> Businesses { get; set; } = new ObservableRangeCollection<Business>();
 
         readonly IDataStore<Business> BusinessStore;
 
 
-
-        public BusinessViewModel(IDataStore<Business> dataStore)
+        public BusinessViewModel(INavigationService navigationService, IDataStore<Business> dataStore) : base(navigationService)
         {
             BusinessStore = dataStore;
         }
 
-        public async Task OnInitalizeAsync()
+        public ICommand EditBusinessCommand => new AsyncCommand<Business>(EditBusiness);
+        public async Task EditBusiness(Business business = null)
         {
-            var businesses = await BusinessStore.GetItemsAsync();
-            Businesses = new ObservableRangeCollection<Business>();
-            OnPropertyChanged(nameof(Businesses));
-            Businesses.AddRange(businesses);
+            await NavigationService.OpenPageAsync<BusinessDetailsViewModel>(business);
         }
 
-        public ICommand NewBusinessCommand => new AsyncCommand(OpenNewBusinessPage);
-
-        public async Task OpenNewBusinessPage()
+        public ICommand RefreshCommand => new AsyncCommand(Refresh);
+        public async Task Refresh()
         {
-            Debug.WriteLine($"Nav service is {NavigationService}");
-            await NavigationService.OpenPageAsync<BusinessDetailsViewModel>();
+            if (!IsBusy)
+                IsBusy = true;
+
+            Businesses.Clear();
+            var businesses = await BusinessStore.GetItemsAsync();
+
+            Businesses.AddRange(businesses, System.Collections.Specialized.NotifyCollectionChangedAction.Reset);
+            IsBusy = false;
+        }
+
+        public override async Task OnAppearingAsync()
+        {
+            await Refresh();
         }
     }
 }

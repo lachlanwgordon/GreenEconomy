@@ -1,25 +1,31 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using GreenEconomy.Core;
+using GreenEconomy.Core.Services;
 using GreenEconomy.Core.ViewModels;
 using Microsoft.AspNetCore.Components;
+using DryIoc;
 
 namespace GreenEconomy.Blazor.Pages
 {
-    public class BasePage : ComponentBase
+    public class BasePage<T> : ComponentBase where T : ViewModelBase
     {
-        [Inject] NavigationManager NavigationManager { get; set; }
-        public ViewModelBase ViewModelBase { get; set; }
+        [Parameter]
+        public string id { get; set; }
 
-        public BasePage()
-        {
-        }
+        [Inject] NavigationManager NavigationManager { get; set; }
+        public T ViewModel;
 
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            Debug.WriteLine($"Nav is {NavigationManager} in base");
-            ViewModelBase.NavigationService = new NavigationService(NavigationManager);
+            var nav = IOC.Current.Container.Resolve<INavigationService>() as NavigationService;
+            nav.NavigationManager = NavigationManager;
+
+            ViewModel = nav.GetViewModel<T>(id);
+            await ViewModel.OnAppearingAsync();
+
         }
     }
 }

@@ -60,18 +60,6 @@
             <ShellContent
                 ContentTemplate="{DataTemplate pages:BusinessPage}" />
         </Tab>
-        <Tab
-            Title="Browse"
-            Icon="tab_feed.png">
-            <ShellContent
-                ContentTemplate="{DataTemplate local:ItemsPage}" />
-        </Tab>
-        <Tab
-            Title="About"
-            Icon="tab_about.png">
-            <ShellContent
-                ContentTemplate="{DataTemplate local:AboutPage}" />
-        </Tab>
     </TabBar>
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.
