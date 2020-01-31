@@ -62,5 +62,10 @@ namespace GreenEconomy.Core.Services
             Debug.WriteLine($"GET Items items count: {items.Count}");
             return await Task.FromResult(items);
         }
+
+        public Task<IEnumerable<Item>> SeedItemsAsync(bool forceRefresh = false)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

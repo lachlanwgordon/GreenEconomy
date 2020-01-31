@@ -10,11 +10,6 @@ namespace GreenEconomy.Blazor
     {
         public void ConfigureServices(IServiceCollection services)
         {
-        }
-
-        public void Configure(IComponentsApplicationBuilder app)
-        {
-            app.AddComponent<App>("app");
             var ioc = new GreenEconomy.Core.IOC();
             ioc.Initialize();
 
@@ -22,9 +17,11 @@ namespace GreenEconomy.Blazor
 
             //Register services that are blazor specific.
             //For shared services go to Core.IOC
-          //  var navService = new NavigationService();
+            //  var navService = new NavigationService();
             //ioc.Container.RegisterInstance<INavigationService>(navService);//   .Register<INavigationService>(Reuse.  navService);
             ioc.Container.Register<INavigationService, NavigationService>(Reuse.Singleton);//   .Register<INavigationService>(Reuse.  navService);
+
+
 
 
 
@@ -32,6 +29,15 @@ namespace GreenEconomy.Blazor
             var nav = ioc.Container.Resolve<INavigationService>();
             nav.Register(typeof(BusinessDetailsViewModel), "businessdetails");
             nav.Register(typeof(BusinessViewModel), "businesses");
+
+
+        }
+
+        public void Configure(IComponentsApplicationBuilder app)
+        {
+            app.AddComponent<App>("app");
+            
+
         }
     }
 }
