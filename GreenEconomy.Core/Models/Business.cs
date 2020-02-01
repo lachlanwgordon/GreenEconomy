@@ -17,8 +17,8 @@ namespace GreenEconomy.Core.Models
         public string Address { get; set; }
         public string ClimateAction { get; set; }
         public string Website {get;set;}
-        public BusinessTypes BusinessType { get; set; } = BusinessTypes.Unknown;
-        public Status Status { get; set; } = Status.Pending;
+        public BusinessTypes BusinessType { get; set; }
+        public Status Status { get; set; } 
 
         public Business()
         {
@@ -41,5 +41,6 @@ namespace GreenEconomy.Core.Models
         Pending = 1,
         Approved = 2,
         Rejected = 3,
+        Draft = 4,
     }
 }

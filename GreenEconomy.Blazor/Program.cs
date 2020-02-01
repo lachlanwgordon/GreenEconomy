@@ -20,6 +20,7 @@ namespace GreenEconomy.Blazor
             var nav = ioc.Container.Resolve<INavigationService>();
             nav.Register(typeof(BusinessDetailsViewModel), "businessdetails");
             nav.Register(typeof(BusinessViewModel), "businesses");
+            nav.Register(typeof(HomeViewModel), "/");
 
             builder.RootComponents.Add<App>("app");
             await builder.Build().RunAsync();

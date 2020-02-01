@@ -46,6 +46,14 @@ namespace GreenEconomy.Core.ViewModels
             IsBusy = false;
         }
 
+        public List<string> StatusNames
+        {
+            get
+            {
+                return Enum.GetNames(typeof(Status)).Select(b => b.SplitCamelCase()).ToList();
+            }
+        }
+
         public override async Task OnAppearingAsync()
         {
             await Refresh();

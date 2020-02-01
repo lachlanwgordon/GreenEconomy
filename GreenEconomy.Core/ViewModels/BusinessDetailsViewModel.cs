@@ -43,6 +43,7 @@ namespace GreenEconomy.Core.ViewModels
         public override async Task OnIntializeAsync(params object[] parameters)
         {
             await base.OnIntializeAsync(parameters);
+
             if (parameters.FirstOrDefault(x => x is Business) is Business business)
             {
                 Business = business;
@@ -62,8 +63,9 @@ namespace GreenEconomy.Core.ViewModels
             }
             else
             {
-                Business = new Business();
                 IsNewBusiness = true;
+                business = new Business { Status = Status.Draft };
+                Business = business;
             }
             OnPropertyChanged(nameof(Business));
 
