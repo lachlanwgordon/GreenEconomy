@@ -20,7 +20,7 @@ namespace GreenEconomy.Core.Services
         {
             HttpClient = httpClient;
         }
-        private const string BaseUrl = "http://localhost:7071/api";
+        private const string BaseUrl = "https://greeneconomy.azurewebsites.net/api/";
         public async Task<List<T>> GetAsync<T>()
         {
             var res = await HttpClient.GetStringAsync($"{BaseUrl}/businessses");
