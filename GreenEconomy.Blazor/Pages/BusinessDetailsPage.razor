@@ -1,4 +1,5 @@
 ﻿@page "/businessdetails"
+@page "/register"
 @page "/businessdetails/{id}"
 
 @inherits BusinessDetailsPageBase
@@ -58,7 +59,6 @@ else
             <label>
                 Climate Action:
                 <InputText @bind-Value="ViewModel.Business.ClimateAction" />
-
             </label>
         </p>
         <p>
@@ -71,24 +71,28 @@ else
             <label>
                 Business Type:
                 <InputSelect @bind-Value="ViewModel.Business.BusinessType">
-                    @foreach(var bus in ViewModel.BusinessTypeNames)
-                    {
+                    @foreach (var bus in ViewModel.BusinessTypeNames)
+                        {
                         <option>@bus</option>
-                    }
+                        }
                 </InputSelect>
             </label>
         </p>
-        <p>
-            <label>
-                Status:
-                <InputSelect @bind-Value="ViewModel.Business.Status">
-                    @foreach (var status in ViewModel.StatusNames)
-                    {
-                        <option>@status</option>
-                    }
-                </InputSelect>
-            </label>
-        </p>
+        @if (!ViewModel.IsNewBusiness)
+        {
+
+            <p>
+                <label>
+                    Status:
+                    <InputSelect @bind-Value="ViewModel.Business.Status">
+                        @foreach (var status in ViewModel.StatusNames)
+                                {
+                            <option>@status</option>
+                                }
+                    </InputSelect>
+                </label>
+            </p>
+        }
     </EditForm>
 
 

@@ -1,7 +1,15 @@
 ﻿@page "/"
+@inherits IndexBase
+<h1>Green Economy</h1>
 
-<h1>Hello, world!</h1>
+<p>
+    Welcome to Green Economy, a place for consumers to find businesess who support climate action and businesses to register their support.
+</p>
+<p>
+    If you're a business who cares about climate change get started by registering so customers can find you.
 
-Welcome to your new app.
+</p>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<button class="btn btn-primary" @onclick="(ViewModel.Register)">Register</button>
+
+
