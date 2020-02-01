@@ -38,39 +38,65 @@ namespace GreenEconomy.Functions
         }
 
         [FunctionName("b")]
-        public static async Task<List<string>> B(
+        public static Task<List<string>> B(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
-            return new List<string> { "Hello", "Goodbye" }; 
+            return Task.FromResult(new List<string> { "Hello", "Goodbye" }); 
         }
 
-
-        [FunctionName("businesses")]
-        public static async Task<List<Business>> GetBusinessesAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ExecutionContext context)
+        [FunctionName("get")]
+        public static async Task<List<BaseModel>> GetModelsAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ExecutionContext context)
         {
-            CloudTable table = await DatabaseHelper.CreateTableAsync(nameof(Business), context);
-            var result = await table.ExecuteQuerySegmentedAsync<ModelEntity<Business>>(new TableQuery<ModelEntity<Business>>(), null);
+            var tableName = req.Query["table"];
+            var business = new Business();
 
-            var businesses = result.Select(x => x.Model).ToList();
+            CloudTable table = await DatabaseHelper.CreateTableAsync(tableName, context);
+
+            var result = await table.ExecuteQuerySegmentedAsync<ModelEntity>(new TableQuery<ModelEntity>(), null);
+
+
+
+            var businesses = result.Select(x => x.Model).ToList().ToList<BaseModel>();
             return businesses;
         }
 
-        [FunctionName("seed")]
-        public static async Task<List<Business>> SeedBusinessesAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ExecutionContext context)
+        [FunctionName("post")]
+        public static async Task<BaseModel> SaveModel([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestMessage req, ExecutionContext context)
         {
-            CloudTable table = await DatabaseHelper.CreateTableAsync(nameof(Business), context);
+            var szModel = await req.Content.ReadAsStringAsync();
+            //var baseModel = await req.Content.ReadAsAsync<BaseModel>();//This crashes due to unsupported content type but I don't know how to fix it. It would be good to get it working.
+            var baseModel = JsonConvert.DeserializeObject<BaseModel>(szModel);
+
+            var tableName = baseModel.TableName;
+            var fullName = $"GreenEconomy.Core.Models.{tableName}, GreenEconomy.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+            var type = Type.GetType(fullName);
+            var model = JsonConvert.DeserializeObject(szModel, type) as BaseModel;
+
+            CloudTable table = await DatabaseHelper.CreateTableAsync(tableName, context);
+
+            var ent = await table.InsertOrMergeEntityAsync(new ModelEntity { Model = model, PartitionKey = tableName, RowKey = model.Id});
+
+            return ent.Model;
+        }
+
+        [FunctionName("seed")]
+        public static async Task<List<BaseModel>> SeedBusinessesAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ExecutionContext context)
+        {
+            var tableName = req.Query["table"];
+
+            CloudTable table = await DatabaseHelper.CreateTableAsync(tableName, context);
 
             var store = new BusinessStore(new WebClient(new HttpClient()));
             var businesses = await store.SeedItemsAsync();
-            var businessesEnitites = businesses.Select(x => new ModelEntity<Business> { Model = x, PartitionKey = "business", RowKey = x.Id });
+            var businessesEnitites = businesses.Select(x => new ModelEntity { Model = x, PartitionKey = tableName, RowKey = x.Id });
 
             foreach (var business in businessesEnitites)
             {
-                await table.InsertOrMergeEntityAsync<Business>(business);
+                await table.InsertOrMergeEntityAsync(business);
             }
 
-            return businesses.ToList();
+            return businesses.ToList<BaseModel>();
         }
     }
 }

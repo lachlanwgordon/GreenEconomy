@@ -23,15 +23,7 @@ namespace GreenEconomy.Core.Services
             new Business{Name = "Bike Shop", Location = new Location(-37.3, 144.65), PhoneNumber = "1256888", Id = "ff5982a3-df0b-4dfb-b76b-48fe041ce67a" }
         };
 
-        public Task<bool> AddItemAsync(Business item)
-        {
-            if(string.IsNullOrWhiteSpace(item.Id))
-            {
-                item.Id = Guid.NewGuid().ToString();
-            }
-            Businesses.Add(item);
-            return Task.FromResult(true);
-        }
+
 
         public Task<bool> DeleteItemAsync(string id)
         {
@@ -46,7 +38,7 @@ namespace GreenEconomy.Core.Services
             {
                 Debug.WriteLine($"looking for: {id}");
                 Debug.WriteLine($"This item:   {bus.Id}");
-                Debug.WriteLine($"match:  {bus.Id == id}\n");
+                Debug.WriteLine($"match:       {bus.Id == id}\n");
             }
 
 
@@ -65,18 +57,11 @@ namespace GreenEconomy.Core.Services
             return Task.FromResult<IEnumerable<Business>>(Businesses.ToList());
         }
 
-        public Task<bool> UpdateItemAsync(Business item)
+        public async Task<bool> SaveItemAsync(Business item)
         {
-            var remove = Businesses.FirstOrDefault(x => x.Id == item.Id);
+            await WebClient.PostAsync<Business>(item);
 
-            if (remove != null)
-            {
-                Businesses.Remove(remove);
-                Businesses.Add(item);
-                return Task.FromResult(true);
-            }
-            return Task.FromResult(false);
-
+            return true;
         }
     }
 }
