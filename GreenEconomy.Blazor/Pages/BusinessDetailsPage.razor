@@ -5,23 +5,90 @@
 
 <h1>@(ViewModel.Business == null || String.IsNullOrEmpty(ViewModel.Business.Name) ? "New Business" : ViewModel.Business.Name) Details</h1>
 
-@if (ViewModel == null)
+@if (ViewModel == null || ViewModel.Business == null)
 {
-    <p><em>VM NULL...</em></p>
+    <p><em>Loading...</em></p>
 }
 else if (ViewModel.IsBusy)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Loading......</em></p>
 }
 
 else
 {
     <p><em>@ViewModel.Business.Name</em></p>
     <EditForm Model="@ViewModel.Business">
-        <InputText id="name" @bind-Value="ViewModel.Business.Name" />
-        <InputText id="name" @bind-Value="ViewModel.Business.PhoneNumber" />
-        <InputNumber id="name" @bind-Value="ViewModel.Business.Location.Latitude" />
-        <InputNumber id="name" @bind-Value="ViewModel.Business.Location.Longitude" />
+
+        <p>
+            <label>
+                Business Name:
+                <InputText @bind-Value="ViewModel.Business.Name" />
+            </label>
+        </p>
+
+        <p>
+            <label>
+                Phone:
+                <InputText @bind-Value="ViewModel.Business.PhoneNumber" />
+            </label>
+        </p>
+
+        <p>
+            <label>
+                Latitude:
+                <InputNumber @bind-Value="ViewModel.Business.Latitude" />
+            </label>
+        </p>
+
+        <p>
+            <label>
+                Longitude:
+                <InputNumber @bind-Value="ViewModel.Business.Longitude" />
+            </label>
+        </p>
+
+        <p>
+            <label>
+                Address:
+                <InputText @bind-Value="ViewModel.Business.Address" />
+            </label>
+        </p>
+
+        <p>
+            <label>
+                Climate Action:
+                <InputText @bind-Value="ViewModel.Business.ClimateAction" />
+
+            </label>
+        </p>
+        <p>
+            <label>
+                Website:
+                <InputText @bind-Value="ViewModel.Business.Website" />
+            </label>
+        </p>
+        <p>
+            <label>
+                Business Type:
+                <InputSelect @bind-Value="ViewModel.Business.BusinessType">
+                    @foreach(var bus in ViewModel.BusinessTypeNames)
+                    {
+                        <option>@bus</option>
+                    }
+                </InputSelect>
+            </label>
+        </p>
+        <p>
+            <label>
+                Status:
+                <InputSelect @bind-Value="ViewModel.Business.Status">
+                    @foreach (var status in ViewModel.StatusNames)
+                    {
+                        <option>@status</option>
+                    }
+                </InputSelect>
+            </label>
+        </p>
     </EditForm>
 
 

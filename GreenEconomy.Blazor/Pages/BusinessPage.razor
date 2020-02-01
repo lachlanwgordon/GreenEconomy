@@ -17,24 +17,25 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
-                <th>Latitude</th>
-                <th>Longitude</th>
+                <th>Website</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var business in ViewModel.Businesses)
             {
-                <tr>
-                    <td>@business.Id</td>
-                    <td>@business.Name</td>
-                    <td>@business.Location.Latitude</td>
-                    <td>@business.Location.Longitude</td>
-                    <td>
-                        <button class="btn btn-primary" @onclick="(() => ViewModel.EditBusiness(business))">Edit</button>
-                    </td>
-                </tr>
+            <tr>
+                <td>@business.Name</td>
+                <td>@business.Website</td>
+                <td>@business.BusinessType</td>
+                <td>@business.Status</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="(() => ViewModel.EditBusiness(business))">Edit</button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
