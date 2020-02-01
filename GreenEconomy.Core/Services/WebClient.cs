@@ -20,10 +20,11 @@ namespace GreenEconomy.Core.Services
         {
             HttpClient = httpClient;
         }
-        private const string BaseUrl = "https://greeneconomy.azurewebsites.net/api/";
+        private const string BaseUrl = "https://greeneconomy.azurewebsites.net/api";
         public async Task<List<T>> GetAsync<T>()
         {
-            var res = await HttpClient.GetStringAsync($"{BaseUrl}/businessses");
+            var url = $"{BaseUrl}/businesses";
+            var res = await HttpClient.GetStringAsync(url);
             var items = JsonConvert.DeserializeObject<List<T>>(res);
             return items;
         }
