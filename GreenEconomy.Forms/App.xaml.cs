@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
 using DryIoc;
 using GreenEconomy.Core;
@@ -28,6 +29,8 @@ namespace GreenEconomy
 
             IOC.Container.Register<Xamarin.Essentials.Interfaces.IGeolocation, Xamarin.Essentials.Implementation.GeolocationImplementation>();
             IOC.Container.Register<INavigationService, NavigationService>(Reuse.Singleton);
+            IOC.Container.Register<HttpClient>(Reuse.Singleton);
+
             var nav = IOC.Container.Resolve<INavigationService>();
 
             nav.Register(typeof(BusinessDetailsViewModel), typeof(BusinessDetailsPage));

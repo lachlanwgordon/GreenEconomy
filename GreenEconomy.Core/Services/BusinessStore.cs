@@ -10,8 +10,11 @@ namespace GreenEconomy.Core.Services
 {
     public class BusinessStore : IDataStore<Business>
     {
-        public BusinessStore()
+        private readonly IWebClient WebClient;
+
+        public BusinessStore(IWebClient webClient)
         {
+            WebClient = webClient;
         }
 
         List<Business> Businesses { get; set; } = new List<Business>
@@ -51,7 +54,13 @@ namespace GreenEconomy.Core.Services
             return Task.FromResult(item);
         }
 
-        public Task<IEnumerable<Business>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Business>> GetItemsAsync(bool forceRefresh = false)
+        {
+            var items = await WebClient.GetAsync<Business>();
+            return items;
+        }
+
+        public Task<IEnumerable<Business>> SeedItemsAsync(bool forceRefresh = false)
         {
             return Task.FromResult<IEnumerable<Business>>(Businesses.ToList());
         }

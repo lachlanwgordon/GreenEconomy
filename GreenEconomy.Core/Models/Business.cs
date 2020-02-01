@@ -8,7 +8,9 @@ namespace GreenEconomy.Core.Models
     {
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
-        public Location Location { get; set; }
+        public Location Location { get; set; } = new Location();
+        public double Latitude { get => Location.Latitude; set => Location.Latitude = value; }
+        public double Longitude { get => Location.Longitude; set => Location.Longitude = value; }
 
         public Business()
         {
