@@ -2,20 +2,38 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="GreenEconomy.Forms.Views.BusinessDetailsPage">
+    x:Class="GreenEconomy.Forms.Views.BusinessDetailsPage" xmlns:converters="clr-namespace:GreenEconomy.Forms.Converters">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Business Details"/>
             <Label Text="Business Name"/>
             <Entry Text="{Binding Business.Name}" Placeholder="Business Name"/>
             <Label Text="Phone Number"/>
-            <Entry Text="{Binding Business.PhoneNumber}" Placeholder="Phone Number"/>
+            <Entry Text="{Binding Business.PhoneNumber}" Placeholder="Phone Number" Keyboard="Telephone" />
             <Label Text="Latitude"/>
-            <Entry Text="{Binding Business.Latitude}" Placeholder="Latitude"/>
+            <Entry Text="{Binding Business.Latitude}" Placeholder="Latitude" Keyboard="Numeric" />
             <Label Text="Longitude"/>
             <Entry Text="{Binding Business.Longitude}" Placeholder="Longitude"/>
+            <Label Text="Address"/>
+            <Editor Text="{Binding Business.Address}" Placeholder="Address"/>
+            <Label Text="Climate Action"/>
+            <Editor Text="{Binding Business.ClimateAction}" Placeholder="Climate Action" />
+            <Label Text="Website"/>
+            <Entry Text="{Binding Business.Website}" Placeholder="Website" Keyboard="Url"/>
+            <Label Text="Business Type"/>
+            <Picker SelectedIndex="{Binding Business.BusinessType, Converter={StaticResource intToEnum}}" ItemsSource="{Binding BusinessTypeNames}"  Title="Business Type"/>
+
+            <Label Text="Status"/>
+            <Picker Title="Status" ItemsSource="{Binding StatusNames}" SelectedIndex="{Binding Business.Status, Converter={StaticResource intToEnum}}"/>
+
+
             <Button Text="Save" Command="{Binding SaveCommand}"/>
             <Button Text="Cancel" Command="{Binding BackCommand}"/>
         </StackLayout>
     </ContentPage.Content>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IntToEnumConverter x:Key="intToEnum"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 </ContentPage>

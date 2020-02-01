@@ -14,6 +14,7 @@ using GreenEconomy.Core.Services;
 using System.Linq;
 using Microsoft.Azure.Cosmos.Table;
 using System.Net.Http;
+using System.Diagnostics;
 
 namespace GreenEconomy.Functions
 {
@@ -48,16 +49,23 @@ namespace GreenEconomy.Functions
         [FunctionName("get")]
         public static async Task<List<BaseModel>> GetModelsAsync([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req, ExecutionContext context)
         {
+            var watch = new Stopwatch();
+            watch.Start();
+            Debug.WriteLine($"start {watch.ElapsedMilliseconds}ms");
             var tableName = req.Query["table"];
             var business = new Business();
 
             CloudTable table = await DatabaseHelper.CreateTableAsync(tableName, context);
+            Debug.WriteLine($"about to query {watch.ElapsedMilliseconds}ms");
 
             var result = await table.ExecuteQuerySegmentedAsync<ModelEntity>(new TableQuery<ModelEntity>(), null);
 
+            Debug.WriteLine($"queried {watch.ElapsedMilliseconds}ms");
 
 
             var businesses = result.Select(x => x.Model).ToList().ToList<BaseModel>();
+            Debug.WriteLine($"linqed {watch.ElapsedMilliseconds}ms");
+
             return businesses;
         }
 

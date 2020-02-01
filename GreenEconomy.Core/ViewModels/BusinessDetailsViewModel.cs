@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using GreenEconomy.Core.Helpers;
 using GreenEconomy.Core.Models;
 using GreenEconomy.Core.Services;
 using MvvmHelpers.Commands;
@@ -20,6 +22,23 @@ namespace GreenEconomy.Core.ViewModels
 
         public Business Business { get; private set; }
         public bool IsNewBusiness { get; private set; }
+
+        public List<string> BusinessTypeNames
+        {
+            get
+            {
+                return Enum.GetNames(typeof(BusinessTypes)).Select(b => b.SplitCamelCase()).ToList();
+            }
+        }
+
+        public List<string> StatusNames
+        {
+            get
+            {
+                return Enum.GetNames(typeof(Status)).Select(b => b.SplitCamelCase()).ToList();
+            }
+        }
+
 
         public override async Task OnIntializeAsync(params object[] parameters)
         {

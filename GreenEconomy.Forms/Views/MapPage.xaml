@@ -24,7 +24,7 @@
             <maps:Map
                 x:Name="TheMap"
                  
-                InitialCameraUpdate="{Binding CurrentLocation, Converter={StaticResource locationToMapCameraUpdateConverter}"
+                InitialCameraUpdate="{Binding CurrentLocation, Converter={StaticResource locationToMapCameraUpdateConverter}}"
                 Grid.Row="1"
                 ItemsSource="{Binding Businesses}">
                 <maps:Map.ItemTemplate>

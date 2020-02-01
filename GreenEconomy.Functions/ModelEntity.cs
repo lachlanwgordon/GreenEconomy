@@ -45,8 +45,9 @@ namespace GreenEconomy.Functions
                     {
                         typeProp.SetValue(Model, prop.Value.DoubleValue);
                     }
-                    else if (typeProp.PropertyType == typeof(int))
+                    else if (typeProp.PropertyType == typeof(int) || typeProp.PropertyType.IsEnum)
                         typeProp.SetValue(Model, prop.Value.Int32Value);
+                   
                 }
             }
         }
@@ -66,7 +67,7 @@ namespace GreenEconomy.Functions
                     properties.Add(typeProp.Name, new EntityProperty((double)typeProp.GetValue(Model)));
 
                 }
-                else if (typeProp.PropertyType == typeof(int))
+                else if (typeProp.PropertyType == typeof(int) || typeProp.PropertyType.IsEnum)
                 {
                     properties.Add(typeProp.Name, new EntityProperty((int)typeProp.GetValue(Model)));
                 }
