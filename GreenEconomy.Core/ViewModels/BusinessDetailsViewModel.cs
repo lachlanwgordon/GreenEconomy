@@ -54,10 +54,8 @@ namespace GreenEconomy.Core.ViewModels
 
         public async Task Save()
         {
-            if (IsNewBusiness)
-                await DataStore.AddItemAsync(Business);
-            else
-                await DataStore.UpdateItemAsync(Business);
+            await DataStore.SaveItemAsync(Business);
+
             await NavigationService.GoBackAsync();
         }
     }

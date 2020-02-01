@@ -53,7 +53,7 @@ namespace GreenEconomy.Functions
             return table;
         }
 
-        public static async Task<ModelEntity<T>> InsertOrMergeEntityAsync<T>(this CloudTable table, ModelEntity<T> entity) where T : BaseModel, new()
+        public static async Task<ModelEntity> InsertOrMergeEntityAsync(this CloudTable table, ModelEntity entity) 
         {
             if (entity == null)
             {
@@ -66,7 +66,7 @@ namespace GreenEconomy.Functions
 
                 // Execute the operation.
                 TableResult result = await table.ExecuteAsync(insertOrMergeOperation);
-                ModelEntity<T> insertedCustomer = result.Result as ModelEntity<T>;
+                ModelEntity insertedModel = result.Result as ModelEntity;
 
                 // Get the request units consumed by the current operation. RequestCharge of a TableResult is only applied to Azure Cosmos DB
                 if (result.RequestCharge.HasValue)
@@ -74,12 +74,11 @@ namespace GreenEconomy.Functions
                     Console.WriteLine("Request Charge of InsertOrMerge Operation: " + result.RequestCharge);
                 }
 
-                return insertedCustomer;
+                return insertedModel;
             }
-            catch (StorageException e)
+            catch (StorageException ex)
             {
-                Console.WriteLine(e.Message);
-                Console.ReadLine();
+                Debug.WriteLine($"Insert or merge error {ex} \n {ex.StackTrace}");
                 throw;
             }
         }

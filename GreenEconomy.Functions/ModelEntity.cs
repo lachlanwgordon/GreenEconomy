@@ -7,82 +7,30 @@ using Xamarin.Essentials;
 
 namespace GreenEconomy.Functions
 {
-    public class ModelWrapper<T> where T : BaseModel 
+    public class ModelEntity : ITableEntity  
     {
-        T Model { get; set; }
-        DynamicTableEntity Entity { get; set; } = new DynamicTableEntity();
+        public string PartitionKey { get; set; }
+        public string RowKey { get; set; }
+        public DateTimeOffset Timestamp { get; set; }
+        public string ETag { get; set; }
 
+        public BaseModel Model { get; set; } = new BaseModel();
 
-
-
-        public void PopuplateEntity()
+        public void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
         {
-            var props = typeof(T).GetProperties();
-            foreach (var prop in props)
+            if(properties.TryGetValue("TableName", out EntityProperty tableName))
             {
+                var fullName = $"GreenEconomy.Core.Models.{tableName}, GreenEconomy.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null";
+                var type = Type.GetType(fullName);
 
-
-                var val = prop.GetValue(Model);
-
-                if(prop.PropertyType == typeof(string))
-                {
-                    Entity.Properties.Add(prop.Name, new EntityProperty(val as string));
-                }
-
-
-
-
-
+                Model = Activator.CreateInstance(type) as BaseModel;
             }
-        }
-    }
+            else
+            {
+                return;
+            }
 
-
-
-    public class BusinessEntity : Business, ITableEntity
-    {
-        public string PartitionKey { get; set; }
-        public string RowKey { get; set; }
-        public DateTimeOffset Timestamp { get; set; }
-        public string ETag { get; set; }
-
-        public void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
-        {
-            PartitionKey = properties[nameof(PartitionKey)].StringValue;
-            RowKey = properties[nameof(RowKey)].StringValue;
-            Timestamp = properties[nameof(Timestamp)].DateTimeOffsetValue.Value;
-            Id = properties[nameof(Id)].StringValue;
-            Name = properties[nameof(Name)].StringValue;
-            Location = new Location(properties["Latitude"].DoubleValue.Value, properties["Longitude"].DoubleValue.Value);
-        }
-
-
-        public IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
-        {
-            var properties = new Dictionary<string, EntityProperty>();
-
-
-
-
-
-            return properties;
-        }
-    }
-
-
-    public class ModelEntity<T> : ITableEntity where T : BaseModel, new()
-    {
-        public string PartitionKey { get; set; }
-        public string RowKey { get; set; }
-        public DateTimeOffset Timestamp { get; set; }
-        public string ETag { get; set; }
-
-        public T Model { get; set; } = new T();
-
-        public void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
-        {
-
-            var typeProperties = typeof(T).GetProperties();
+            var typeProperties = Model.GetType().GetProperties();
             foreach (var prop in properties)
             {
                 var typeProp = typeProperties.FirstOrDefault(x => x.Name == prop.Key);
@@ -106,7 +54,7 @@ namespace GreenEconomy.Functions
         public IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
         {
             var properties = new Dictionary<string, EntityProperty>();
-            var typeProperties = typeof(T).GetProperties();
+            var typeProperties = Model.GetType().GetProperties();
             foreach (var typeProp in typeProperties)
             {
                 if (typeProp.PropertyType == typeof(string))

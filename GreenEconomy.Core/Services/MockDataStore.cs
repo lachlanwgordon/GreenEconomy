@@ -67,5 +67,10 @@ namespace GreenEconomy.Core.Services
         {
             throw new NotImplementedException();
         }
+
+        public Task<bool> SaveItemAsync(Item item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
