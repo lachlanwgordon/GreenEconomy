@@ -1,16 +1,29 @@
-﻿using Microsoft.AspNetCore.Blazor.Hosting;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Blazor.Hosting;
+using DryIoc;
+using GreenEconomy.Core.Services;
+using GreenEconomy.Core.ViewModels;
 
 namespace GreenEconomy.Blazor
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var builder = WebAssemblyHostBuilder.CreateDefault();
+
+            var ioc = new GreenEconomy.Core.IOC();
+            ioc.Initialize();
+            ioc.Container.Register<INavigationService, NavigationService>(Reuse.Singleton);//   .Register<INavigationService>(Reuse.  navService);
+
+            //Register pages for navigation
+            var nav = ioc.Container.Resolve<INavigationService>();
+            nav.Register(typeof(BusinessDetailsViewModel), "businessdetails");
+            nav.Register(typeof(BusinessViewModel), "businesses");
+
+            builder.RootComponents.Add<App>("app");
+            await builder.Build().RunAsync();
         }
 
-        public static IWebAssemblyHostBuilder CreateHostBuilder(string[] args) =>
-            BlazorWebAssemblyHost.CreateDefaultBuilder()
-                .UseBlazorStartup<Startup>();
     }
 }
