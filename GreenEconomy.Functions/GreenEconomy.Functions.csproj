@@ -7,6 +7,7 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.29" />
     <PackageReference Include="DryIoc.dll" Version="4.1.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos.Table" Version="1.0.6" />
+    <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <None Update="host.json">
@@ -19,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GreenEconomy.Core\GreenEconomy.Core.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Xamarin.Essentials.Blazor\Xamarin.Essentials.Blazor.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
