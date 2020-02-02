@@ -29,6 +29,8 @@ namespace GreenEconomy
 
             IOC.Container.Register<Xamarin.Essentials.Interfaces.IGeolocation, Xamarin.Essentials.Implementation.GeolocationImplementation>();
             IOC.Container.Register<INavigationService, NavigationService>(Reuse.Singleton);
+            IOC.Container.Register<Xamarin.Essentials.Interfaces.IGeocoding, Xamarin.Essentials.Implementation.GeocodingImplementation>();
+
             var http = new HttpClient();
             IOC.Container.RegisterInstance<HttpClient>(http);
 

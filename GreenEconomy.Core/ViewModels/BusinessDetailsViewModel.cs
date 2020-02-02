@@ -75,6 +75,8 @@ namespace GreenEconomy.Core.ViewModels
 
         public async Task Save()
         {
+            var loc = await Business.Geocode();
+
             await DataStore.SaveItemAsync(Business);
 
             await NavigationService.GoBackAsync();
