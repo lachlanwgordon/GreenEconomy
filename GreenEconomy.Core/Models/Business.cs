@@ -22,7 +22,7 @@ namespace GreenEconomy.Core.Models
         public string ClimateAction { get; set; }
         public string Website {get;set;}
         public BusinessTypes BusinessType { get; set; }
-        public Status Status { get; set; } 
+        public Status Status { get; set; }
 
         public Business()
         {

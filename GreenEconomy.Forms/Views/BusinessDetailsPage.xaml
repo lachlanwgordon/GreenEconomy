@@ -23,6 +23,7 @@
             <Label Text="Business Type"/>
             <Picker SelectedIndex="{Binding Business.BusinessType, Converter={StaticResource intToEnum}}" ItemsSource="{Binding BusinessTypeNames}"  Title="Business Type"/>
 
+
             <Label Text="Status"/>
             <Picker Title="Status" ItemsSource="{Binding StatusNames}" SelectedIndex="{Binding Business.Status, Converter={StaticResource intToEnum}}"/>
 

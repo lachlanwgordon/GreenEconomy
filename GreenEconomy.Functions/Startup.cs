@@ -20,6 +20,7 @@ namespace GreenEconomy.Functions
             ioc.Initialize();
             ioc.Container.Register<IGeocoding, Xamarin.Essentials.Blazor.Geocoding>();
 
+            var geocoder = new 
         }
     }
 }

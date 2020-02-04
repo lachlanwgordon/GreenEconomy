@@ -16,6 +16,9 @@
     <ProjectReference Include="..\GreenEconomy.Core\GreenEconomy.Core.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\Xamarin.Essentials.Blazor\Xamarin.Essentials.Blazor.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Update="Properties\launchSettings.json">

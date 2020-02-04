@@ -1,28 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Geocoding.Microsoft;
 
-namespace Xamarin.Essentials.Blazor
+namespace Xamarin.EssentialsBL.Blazor
 {
-    public class Geocoding : Xamarin.Essentials.Interfaces.IGeocoding
+    public class GeocodingImpl : Xamarin.Essentials.Interfaces.IGeocoding
     {
-        public Geocoding()
+        private static string APIKey = "";//donot commit this
+        private static BingMapsGeocoder Geocoder = new BingMapsGeocoder(APIKey);
+        public static void Initialize(string aPIKey)
+        {
+            APIKey = aPIKey;
+        }
+
+        public GeocodingImpl()
         {
         }
 
-        public Task<IEnumerable<Location>> GetLocationsAsync(string address)
+        public async Task<IEnumerable<Essentials.Location>> GetLocationsAsync(string address)
         {
-            throw new NotImplementedException();
+            var bingAddresses = await Geocoder.GeocodeAsync(address);
+            var locations = bingAddresses.Select(x => new Essentials.Location(x.Coordinates.Latitude, x.Coordinates.Longitude));
+            return locations;
         }
 
-        public Task<IEnumerable<Placemark>> GetPlacemarksAsync(Location location)
+        public async Task<IEnumerable<Essentials.Placemark>> GetPlacemarksAsync(Essentials.Location location)
         {
-            throw new NotImplementedException();
+            var bingAddresses = await Geocoder.ReverseGeocodeAsync(new Geocoding.Location(location.Latitude, location.Longitude));
+            var placeMarks = bingAddresses.Select(x =>
+                new Essentials.Placemark
+                {
+                    AdminArea = x.AdminDistrict,
+                    CountryName = x.CountryRegion,
+                    Locality = x.Locality,
+                    PostalCode = x.PostalCode,
+                    FeatureName = "",
+                    Location = new Essentials.Location(x.Coordinates.Latitude, x.Coordinates.Longitude),
+                    CountryCode = "",
+                    SubAdminArea = x.AdminDistrict2,
+                    SubLocality = x.Neighborhood,
+                    Thoroughfare = x.AddressLine
+                }) ;
+            return placeMarks;
         }
 
-        public Task<IEnumerable<Placemark>> GetPlacemarksAsync(double latitude, double longitude)
+        public Task<IEnumerable<Essentials.Placemark>> GetPlacemarksAsync(double latitude, double longitude)
         {
-            throw new NotImplementedException();
+            return GetPlacemarksAsync(new Essentials.Location(latitude, longitude));
         }
     }
 }

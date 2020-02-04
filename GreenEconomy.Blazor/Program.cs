@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Blazor.Hosting;
 using DryIoc;
 using GreenEconomy.Core.Services;
 using GreenEconomy.Core.ViewModels;
+using Xamarin.Essentials.Interfaces;
 
 namespace GreenEconomy.Blazor
 {
@@ -15,6 +16,7 @@ namespace GreenEconomy.Blazor
             var ioc = new GreenEconomy.Core.IOC();
             ioc.Initialize();
             ioc.Container.Register<INavigationService, NavigationService>(Reuse.Singleton);//   .Register<INavigationService>(Reuse.  navService);
+            ioc.Container.Register<IGeocoding, Xamarin.EssentialsBL.Blazor.GeocodingImpl>();
 
             //Register pages for navigation
             var nav = ioc.Container.Resolve<INavigationService>();
