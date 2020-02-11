@@ -18,9 +18,9 @@ namespace GreenEconomy.Functions
             var business = new Business();
             var ioc = new IOC();
             ioc.Initialize();
-            ioc.Container.Register<IGeocoding, Xamarin.Essentials.Blazor.Geocoding>();
+            ioc.Container.Register<IGeocoding, Xamarin.EssentialsBL.Blazor.GeocodingImpl>();
 
-            var geocoder = new 
+            //var geocoder = new 
         }
     }
 }

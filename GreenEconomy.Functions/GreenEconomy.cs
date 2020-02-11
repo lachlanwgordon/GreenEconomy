@@ -81,6 +81,13 @@ namespace GreenEconomy.Functions
             var type = Type.GetType(fullName);
             var model = JsonConvert.DeserializeObject(szModel, type) as BaseModel;
 
+
+            if(model is Business business)
+            {
+                var loc = await business.Geocode();
+            }
+
+
             CloudTable table = await DatabaseHelper.CreateTableAsync(tableName, context);
 
             var ent = await table.InsertOrMergeEntityAsync(new ModelEntity { Model = model, PartitionKey = tableName, RowKey = model.Id});

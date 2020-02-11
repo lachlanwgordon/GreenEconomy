@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
 using DryIoc;
 using GreenEconomy.Core.Models;
@@ -11,21 +12,18 @@ namespace GreenEconomy.Core
 {
     public class IOC
     {
-        public IOC()
+        public IOC(HttpClient httpClient)
         {
+            Container.Register<IDataStore<Business>, BusinessStore>(Reuse.Singleton);
+            Container.Register<IWebClient, WebClient>(Reuse.Singleton);
+            Container.RegisterInstance(httpClient);
+
+            Current = this;
         }
 
         public static IOC Current { get; private set; }
         public IContainer Container = new DryIoc.Container(rules => rules.WithoutFastExpressionCompiler());
 
-
-        public void Initialize()
-        {
-            Container.Register<IDataStore<Business>, BusinessStore>(Reuse.Singleton);
-            Container.Register<IWebClient, WebClient>(Reuse.Singleton);
-
-            Current = this;
-        }
 
     }
 }

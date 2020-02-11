@@ -23,8 +23,8 @@ namespace GreenEconomy.Core.Services
         {
             HttpClient = httpClient;
         }
-        private const string BaseUrl = "https://greeneconomy.azurewebsites.net/api";
-        //private const string BaseUrl = "http://localhost:7071/api";
+        //private const string BaseUrl = "https://greeneconomy.azurewebsites.net/api";
+        private const string BaseUrl = "http://localhost:7071/api";
         public async Task<List<T>> GetAsync<T>() where T : BaseModel
         {
             var items = new List<T>();
