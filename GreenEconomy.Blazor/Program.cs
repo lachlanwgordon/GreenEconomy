@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Blazor.Hosting;
-using DryIoc;
 using GreenEconomy.Core.Services;
 using GreenEconomy.Core.ViewModels;
 using Xamarin.Essentials.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using GreenEconomy.Core;
+
 
 namespace GreenEconomy.Blazor
 {
@@ -17,25 +17,25 @@ namespace GreenEconomy.Blazor
 
             builder.RootComponents.Add<App>("app");
 
-            builder.Services.AddSingleton<IOC>();
-
             var host = builder.Build();
 
-            var ioc = host.Services.GetRequiredService<IOC>();
+            builder.Services.AddSingleton<IOC>();
+            builder.Services.AddSingleton<INavigationService, NavigationService>();
 
-            ioc.Container.Register<INavigationService, NavigationService>(Reuse.Singleton);
 
-            Xamarin.Essentials.Blazor.GoogleHttpGeocoding.APIKey = GreenEconomy.Core.Helpers.Keys.GoogleGeocodingKey;
-            ioc.Container.Register<IGeocoding, Xamarin.Essentials.Blazor.GoogleHttpGeocoding>();
+            Xamarin.Essentials.Blazor.GoogleHttpGeocoding.APIKey = Core.Helpers.Keys.GoogleGeocodingKey;
+            builder.Services.AddScoped<IGeocoding, Xamarin.Essentials.Blazor.GoogleHttpGeocoding>();
 
             //Register pages for navigation
-            var nav = ioc.Container.Resolve<INavigationService>();
+            var nav = host.Services.GetService<INavigationService>();
             nav.Register(typeof(BusinessDetailsViewModel), "businessdetails");
             nav.Register(typeof(BusinessViewModel), "businesses");
             nav.Register(typeof(HomeViewModel), "/");
 
 
-            await builder.Build().RunAsync();
+
+
+            await host.RunAsync();
         }
     }
 }

@@ -5,7 +5,6 @@ using GreenEconomy.Core;
 using GreenEconomy.Core.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
-using DryIoc;
 
 namespace GreenEconomy.Forms.Views
 {
@@ -18,7 +17,7 @@ namespace GreenEconomy.Forms.Views
             //TheMap.InitialCameraUpdate = CameraUpdateFactory.NewCameraPosition(new CameraPosition(new Position(-37, 145), 5));
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             Debug.WriteLine(ViewModel.Businesses.Count);

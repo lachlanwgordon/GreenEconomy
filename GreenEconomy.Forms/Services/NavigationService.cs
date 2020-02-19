@@ -6,22 +6,26 @@ using GreenEconomy.Core.Services;
 using GreenEconomy.Core.ViewModels;
 using GreenEconomy.Forms.Views;
 using Xamarin.Forms;
-using DryIoc;
 using GreenEconomy.Core.Models;
+using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 
 namespace GreenEconomy.Forms.Services
 {
     public class NavigationService : INavigationService
     {
-        public NavigationService()
+        private readonly IServiceCollection Collection;
+        public NavigationService(IServiceCollection services)
         {
+            Collection = services;
         }
         Dictionary<Type, Type> Pages = new Dictionary<Type, Type>();
+
         public async Task<T> OpenPageAsync<T>(params BaseModel[] parameters) where T : ViewModelBase
         {
             var pageType = Pages[typeof(T)];
             var page = Activator.CreateInstance(pageType) as ContentPage;
-            var vm = IOC.Current.Container.Resolve<T>();
+            var vm = IOC.Current.Provider.GetService<T>();
             page.BindingContext = vm;
             vm.BaseInit(parameters);
             await Shell.Current.Navigation.PushAsync(page);
@@ -34,7 +38,8 @@ namespace GreenEconomy.Forms.Services
             {
                 Pages.Add(viewModel, contentPage);
             }
-            IOC.Current.Container.Register(viewModel);
+            Collection.AddTransient(viewModel);
+            Debug.WriteLine($"vm {viewModel} added to services count: {Collection.Count}");
         }
 
         public async Task<ViewModelBase> GoBackAsync()

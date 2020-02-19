@@ -5,7 +5,6 @@ using GreenEconomy.Core;
 using GreenEconomy.Core.Services;
 using GreenEconomy.Core.ViewModels;
 using Microsoft.AspNetCore.Components;
-using DryIoc;
 using System.Net.Http;
 
 namespace GreenEconomy.Blazor.Pages
@@ -16,6 +15,7 @@ namespace GreenEconomy.Blazor.Pages
         public string id { get; set; }
 
         [Inject] NavigationManager NavigationManager { get; set; }
+        [Inject] INavigationService NavigationService { get; set; }
         public T ViewModel;
 
         [Inject] HttpClient HttpClient { get; set; }
@@ -23,10 +23,8 @@ namespace GreenEconomy.Blazor.Pages
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            var nav = IOC.Current.Container.Resolve<INavigationService>() as NavigationService;
+            var nav = NavigationService as NavigationService;
             nav.NavigationManager = NavigationManager;
-
-            IOC.Current.Container.RegisterInstance(HttpClient);
 
             ViewModel = nav.GetViewModel<T>(id);
             await ViewModel.OnAppearingAsync();
