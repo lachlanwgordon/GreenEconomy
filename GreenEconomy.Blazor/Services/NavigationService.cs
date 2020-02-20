@@ -21,11 +21,9 @@ namespace GreenEconomy.Blazor
         Dictionary<Type, string> Pages = new Dictionary<Type, string>();
         Dictionary<string, ViewModelBase> VMInstances = new Dictionary<string, ViewModelBase>();
 
-        IServiceProvider Provider;
         IServiceCollection Collection;
-        public NavigationService(IServiceProvider serviceProvider, IServiceCollection collection)
+        public NavigationService(IServiceCollection collection)
         {
-            Provider = serviceProvider;
             Collection = collection;
         }
 
@@ -64,12 +62,12 @@ namespace GreenEconomy.Blazor
             }
             else if (!string.IsNullOrWhiteSpace(id))
             {
-                vm = Provider.GetService<T>();    //IOC.Current.Container.Resolve<T>();
+                vm = IOC.Current.Provider.GetService<T>();    //IOC.Current.Container.Resolve<T>();
                 vm.BaseInit(id);
             }
             else
             {
-                vm = Provider.GetService<T>();    //IOC.Current.Container.Resolve<T>();
+                vm = IOC.Current.Provider.GetService<T>();    //IOC.Current.Container.Resolve<T>();
                 vm.BaseInit();
             }
 
