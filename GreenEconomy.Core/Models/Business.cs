@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
+using System.Linq;
+using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GreenEconomy.Core.Models
 {
@@ -18,13 +22,31 @@ namespace GreenEconomy.Core.Models
         public string ClimateAction { get; set; }
         public string Website {get;set;}
         public BusinessTypes BusinessType { get; set; }
-        public Status Status { get; set; } 
+        public Status Status { get; set; }
 
         public Business()
         {
         }
 
+        public async Task<IEnumerable<Location>> Geocode()
+        {
+            try
+            {
+                var geocode = IOC.Current.Provider.GetService<Xamarin.Essentials.Interfaces.IGeocoding>();
 
+                var locations = await geocode.GetLocationsAsync(Address);
+                if(Location == null || Latitude == 0 && Longitude == 0)
+                {
+                    Location = locations.FirstOrDefault();
+                }
+                return locations;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"cannot geocode probably running on unsupported platofrm \n {ex}");
+            }
+            return null;
+        }
         
     }
     public enum BusinessTypes

@@ -2,20 +2,20 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
-using DryIoc;
 using GreenEconomy.Core;
 using GreenEconomy.Core.Services;
 using GreenEconomy.Core.ViewModels;
 using GreenEconomy.Forms.Services;
 using GreenEconomy.Forms.Views;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+
 using Xamarin.Forms;
 
 namespace GreenEconomy
 {
     public partial class App : Application
     {
-        public IOC IOC = new IOC();
-
         public App()
         {
             InitializeComponent();
@@ -25,18 +25,27 @@ namespace GreenEconomy
 
         protected override void OnStart()
         {
-            IOC.Initialize();
+            var services = new ServiceCollection();
+            Debug.WriteLine($"services created:   {services.Count}");
 
-            IOC.Container.Register<Xamarin.Essentials.Interfaces.IGeolocation, Xamarin.Essentials.Implementation.GeolocationImplementation>();
-            IOC.Container.Register<INavigationService, NavigationService>(Reuse.Singleton);
-            var http = new HttpClient();
-            IOC.Container.RegisterInstance<HttpClient>(http);
+            services.AddTransient<Xamarin.Essentials.Interfaces.IGeolocation, Xamarin.Essentials.Implementation.GeolocationImplementation>();
+            services.AddSingleton<IOC>(new IOC(services));
+            services.AddTransient<Xamarin.Essentials.Interfaces.IGeocoding, Xamarin.Essentials.Implementation.GeocodingImplementation>();
+            services.AddSingleton<HttpClient>();
 
-            var nav = IOC.Container.Resolve<INavigationService>();
+            var nav = new NavigationService(services);
+            services.AddSingleton<INavigationService>(nav);
+
 
             nav.Register(typeof(BusinessDetailsViewModel), typeof(BusinessDetailsPage));
             nav.Register(typeof(BusinessViewModel), typeof(BusinessPage));
             nav.Register(typeof(MapViewModel), typeof(MapPage));
+
+            Debug.WriteLine($"Nav registered. total:  {services.Count}");
+
+            var provider = services.BuildServiceProvider();
+            Debug.WriteLine($"Provider built   ");
+            IOC.Current.Provider = provider;
         }
 
         protected override void OnSleep()

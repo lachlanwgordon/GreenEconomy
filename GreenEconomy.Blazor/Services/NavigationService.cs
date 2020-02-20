@@ -6,10 +6,10 @@ using GreenEconomy.Core;
 using GreenEconomy.Core.Services;
 using GreenEconomy.Core.ViewModels;
 using Microsoft.AspNetCore.Components;
-using DryIoc;
 using MvvmHelpers;
 using GreenEconomy.Core.Models;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GreenEconomy.Blazor
 {
@@ -20,10 +20,17 @@ namespace GreenEconomy.Blazor
         Stack<(string url, ViewModelBase vm)> NavigationStack = new Stack<(string url, ViewModelBase vm)>();
         Dictionary<Type, string> Pages = new Dictionary<Type, string>();
         Dictionary<string, ViewModelBase> VMInstances = new Dictionary<string, ViewModelBase>();
- 
+
+        IServiceCollection Collection;
+        public NavigationService(IServiceCollection collection)
+        {
+            Collection = collection;
+        }
+
+
         public Task<T> OpenPageAsync<T>(params BaseModel[] parameters) where T : ViewModelBase
         {
-            var vm = IOC.Current.Container.Resolve(typeof(T)) as ViewModelBase;
+            var vm = IOC.Current.Provider.GetService(typeof(T)) as ViewModelBase;
 
             var page = Pages[typeof(T)];
             vm.BaseInit(parameters);
@@ -55,12 +62,12 @@ namespace GreenEconomy.Blazor
             }
             else if (!string.IsNullOrWhiteSpace(id))
             {
-                vm = IOC.Current.Container.Resolve<T>();
+                vm = IOC.Current.Provider.GetService<T>();    //IOC.Current.Container.Resolve<T>();
                 vm.BaseInit(id);
             }
             else
             {
-                vm = IOC.Current.Container.Resolve<T>();
+                vm = IOC.Current.Provider.GetService<T>();    //IOC.Current.Container.Resolve<T>();
                 vm.BaseInit();
             }
 
@@ -73,7 +80,7 @@ namespace GreenEconomy.Blazor
             if (! (page is string uri))
                 throw new Exception("Invalid page key");
             Pages.Add(viewModel, uri);
-            IOC.Current.Container.Register(viewModel);
+            Collection.AddTransient(viewModel);
 
         }
 

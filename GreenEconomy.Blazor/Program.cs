@@ -1,8 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Blazor.Hosting;
-using DryIoc;
 using GreenEconomy.Core.Services;
 using GreenEconomy.Core.ViewModels;
+using Xamarin.Essentials.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using GreenEconomy.Core;
+using System.Diagnostics;
 
 namespace GreenEconomy.Blazor
 {
@@ -12,19 +15,40 @@ namespace GreenEconomy.Blazor
         {
             var builder = WebAssemblyHostBuilder.CreateDefault();
 
-            var ioc = new GreenEconomy.Core.IOC();
-            ioc.Initialize();
-            ioc.Container.Register<INavigationService, NavigationService>(Reuse.Singleton);//   .Register<INavigationService>(Reuse.  navService);
+            builder.RootComponents.Add<App>("app");
+
+            var host = builder.Build();
+
+            builder.Services.AddSingleton<IOC>(new IOC(builder.Services));
+
+
+            Xamarin.Essentials.Blazor.GoogleHttpGeocoding.APIKey = Core.Helpers.Keys.GoogleGeocodingKey;
+            builder.Services.AddScoped<IGeocoding, Xamarin.Essentials.Blazor.GoogleHttpGeocoding>();
+
+            var nav = new NavigationService(builder.Services);
+            builder.Services.AddSingleton<INavigationService>(nav);
 
             //Register pages for navigation
-            var nav = ioc.Container.Resolve<INavigationService>();
             nav.Register(typeof(BusinessDetailsViewModel), "businessdetails");
             nav.Register(typeof(BusinessViewModel), "businesses");
             nav.Register(typeof(HomeViewModel), "/");
 
-            builder.RootComponents.Add<App>("app");
-            await builder.Build().RunAsync();
-        }
 
+            var provider = builder.Services.BuildServiceProvider();
+            Debug.WriteLine($"Provider built   ");
+            IOC.Current.Provider = provider;
+
+            foreach (var service in builder.Services)
+            {
+                Debug.WriteLine($"service: {service.ImplementationInstance} {service.ImplementationType} {service.Lifetime}");
+            }
+
+            Debug.WriteLine($"services loaded");
+
+            var na = provider.GetService<INavigationService>();
+            Debug.WriteLine($"nav: {na}");
+
+            await host.RunAsync();
+        }
     }
 }
