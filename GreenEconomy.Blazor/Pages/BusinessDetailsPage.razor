@@ -37,8 +37,11 @@ else
         <p>
             <label>
                 Latitude:
-                <InputNumber @bind-Value="ViewModel.Business.Latitude" />
             </label>
+            <label>
+                @ViewModel.Business.Latitude
+            </label>
+
         </p>
 
         <p>
@@ -106,3 +109,4 @@ else
     <p><em>@ViewModel.Error</em></p>
 
 }
+

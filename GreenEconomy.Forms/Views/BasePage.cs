@@ -3,7 +3,7 @@ using System.Diagnostics;
 using GreenEconomy.Core;
 using GreenEconomy.Core.ViewModels;
 using Xamarin.Forms;
-using DryIoc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GreenEconomy.Forms.Views
 {
@@ -20,7 +20,9 @@ namespace GreenEconomy.Forms.Views
             base.OnAppearing();
             if(BindingContext == null)
             {
-                BindingContext = IOC.Current.Container.Resolve<T>();
+
+
+                BindingContext = IOC.Current.Provider.GetService<T>();
                 (BindingContext as T).BaseInit();
             }
             await ViewModel.OnAppearingAsync();

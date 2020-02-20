@@ -1,31 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
-using DryIoc;
 using GreenEconomy.Core.Models;
 using GreenEconomy.Core.Services;
 using GreenEconomy.Core.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace GreenEconomy.Core
 {
     public class IOC
     {
-        public IOC()
+        public IServiceProvider Provider;
+        public readonly IServiceCollection Collection;
+        public IOC(IServiceCollection collection)
         {
-        }
 
-        public static IOC Current { get; private set; }
-        public IContainer Container = new DryIoc.Container(rules => rules.WithoutFastExpressionCompiler());
+            Collection = collection;
 
-
-        public void Initialize()
-        {
-            Container.Register<IDataStore<Business>, BusinessStore>(Reuse.Singleton);
-            Container.Register<IWebClient, WebClient>(Reuse.Singleton);
+            collection.AddScoped<IWebClient, WebClient>();
+            collection.AddScoped<IDataStore<Business>, BusinessStore>();
 
             Current = this;
         }
 
+        public static IOC Current { get; private set; }
     }
 }

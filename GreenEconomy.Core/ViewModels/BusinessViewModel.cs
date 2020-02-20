@@ -6,7 +6,6 @@ using GreenEconomy.Core.Models;
 using GreenEconomy.Core.Services;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
-using DryIoc;
 using System.Collections.Generic;
 using System.Linq;
 using GreenEconomy.Core.Helpers;

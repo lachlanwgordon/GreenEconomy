@@ -5,7 +5,6 @@ using GreenEconomy.Core;
 using GreenEconomy.Core.Models;
 using GreenEconomy.Core.Services;
 using Microsoft.AspNetCore.Components;
-using DryIoc;
 using MvvmHelpers;
 using GreenEconomy.Core.ViewModels;
 using System.Diagnostics;

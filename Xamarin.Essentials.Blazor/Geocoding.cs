@@ -8,7 +8,8 @@ namespace Xamarin.EssentialsBL.Blazor
 {
     public class GeocodingImpl : Xamarin.Essentials.Interfaces.IGeocoding
     {
-        private static string APIKey = "";//donot commit this
+        private static string APIKey = "Ak6lWNgmNxTysBkKcW5FlkS5LZ9hDBblgFxjfhoaF2BWobZot5R635sHlMKr6PGj";//donot commit this
+        //private static string APIKey = "";//donot commit this
         private static BingMapsGeocoder Geocoder = new BingMapsGeocoder(APIKey);
         public static void Initialize(string aPIKey)
         {
